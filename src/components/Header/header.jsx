@@ -28,7 +28,7 @@ const Header = (props) => {
                                     <img src={props.avatar ? props.avatar : userAvatar} alt="avatar" className={style.avatar} />
                                     <span>{props.login}</span>
                                 </NavLink>
-                                <button className={style.logoutBtn} onClick={props.logoutAuth}>Logout Out</button>
+                                <button className={style.logoutBtn} onClick={props.logoutAuth}>Logout</button>
                             </div>
                             : <NavLink className="greenBtn" to='/login'>Login</NavLink>
                         }
