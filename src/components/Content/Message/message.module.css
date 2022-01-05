@@ -1,0 +1,95 @@
+.message {
+  display: flex;
+}
+.dialogs {
+  flex: 1 1 20%;
+  border-right: 1px solid rgba(145, 131, 131, 0.5);
+  margin: -40px 0;
+  padding: 40px 0;
+}
+
+.dialog {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 80%;
+  padding-left: 40px;
+}
+
+.message_wrap {
+  flex: 1 1 500px;
+  padding: 40px 40px 0 0;
+  margin: -40px -40px 0 0;
+  margin-right: -40px;
+  overflow-y: scroll;
+}
+
+.message_wrap > div {
+  display: flex;
+  margin: 20px 0;
+}
+
+.newMessage_wrap {
+  flex: 1 1 auto;
+  border-top: 1px solid rgba(145, 131, 131, 0.5);
+  padding: 40px 40px 0 40px;
+  margin: 0 -40px;
+}
+
+.newTextField {
+  width: 97%;
+  padding: 10px;
+  resize: none;
+}
+
+.addMessage {
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(38 54 250 / 70%);
+  box-shadow: 1px 3px 7px 0 #00000080;
+  border: none;
+  border-radius: 10px;
+  float: right;
+  transition: 0.2s ease-in-out;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.addMessage:active {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 0px 0 #00000080;
+}
+
+.message_in {
+  justify-content: flex-start;
+}
+
+.message_out {
+  justify-content: flex-end;
+}
+
+.text {
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 10px 20px;
+}

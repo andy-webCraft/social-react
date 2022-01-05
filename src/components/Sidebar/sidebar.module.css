@@ -1,0 +1,18 @@
+.menu {
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.item a {
+  transition: all 0.2s ease-in;
+}
+
+.item a:hover {
+  color: rgba(58, 87, 218, 0.808);
+}
+
+/* .active {
+    color: rgba(58, 87, 218, 0.808);
+} */

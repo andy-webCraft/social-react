@@ -1,0 +1,82 @@
+.list {
+}
+
+.item {
+  min-width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(48, 65, 158, 0.493);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 auto 30px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.text {
+  margin-left: 40px;
+}
+
+.name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.phrase {
+  opacity: 0.7;
+}
+
+.action > button,
+.showMore {
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(38 54 250 / 70%);
+  box-shadow: 1px 3px 7px 0 #00000080;
+  border: none;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.action > button[disabled],
+.showMore[disabled] {
+  opacity: 0.5;
+}
+
+.action > button:active,
+.showMore:active {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 0px 0 #00000080;
+}
+
+.paggination span {
+  font-size: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.selectedPage {
+  font-weight: bold;
+}

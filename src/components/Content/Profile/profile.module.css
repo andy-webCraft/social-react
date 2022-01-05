@@ -1,0 +1,122 @@
+.top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.info {
+  margin-left: 40px;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.description > span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.addPost {
+  margin: 30px 0;
+}
+
+.addPost textarea {
+  width: 50%;
+  font-size: 16px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.add {
+  width: 120px;
+  height: 40px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(38 54 250 / 70%);
+  box-shadow: 1px 3px 7px 0 #00000080;
+  border: none;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.add:active {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 0px 0 #00000080;
+}
+
+.post {
+  width: 50%;
+  background-color: rgb(71 156 27 / 40%);
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.post_text {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.likes {
+  display: flex;
+}
+
+.like {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+
+.status p {
+  padding: 0 0 3px 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* .status:hover ::before {
+  opacity: 1;
+}
+
+.status p::before {
+  content: "click for change";
+  width: 120px;
+  height: 16px;
+  text-align: center;
+  line-height: 1;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: 3px;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  opacity: 0;
+  transition: all .2s ease-in;
+} */
+
+.status input {
+  font-size: 16px;
+}
