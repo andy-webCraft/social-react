@@ -2,15 +2,16 @@ import React from "react";
 import style from './profile.module.css'
 import userAvatar from "../../../assets/img/user.png"
 import ProfileStatus from "./profile-status"
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
 
 const maxLength10 = maxLengthCreator(10)
 
 const Profile = (props) => {
-    const addPost = (formData) => {
+    const addPost = (formData, dispatch) => {
         props.addPost(formData.newPostText)
+        dispatch(reset("profilePost"))
     }
 
     return (

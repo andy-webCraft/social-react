@@ -4,25 +4,40 @@ import { BrowserRouter } from 'react-router-dom';
 import Content from './components/Content/content';
 import SidebarContainer from './components/Sidebar/sidebar-container';
 import HeaderContainer from './components/Header/header-container';
+import { connect } from 'react-redux';
+import { initializedApp } from './Redux/app-reducer';
+import Preloader from './components/common/preloader/preloader';
 
-const App = (props) => {
-    return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <HeaderContainer />
-                <div className="app-content">
-                    <div className="container">
-                        <div className="sidebar-wrapper">
-                            <SidebarContainer />
-                        </div>
-                        <div className="content-wrapper">
-                            <Content />
+class App extends React.Component {
+    componentDidMount() {
+        this.props.initializedApp()
+    }
+
+    render() {
+        if (!this.props.initialized) return <Preloader />
+
+        return (
+            <BrowserRouter>
+                <div className="app-wrapper">
+                    <HeaderContainer />
+                    <div className="app-content">
+                        <div className="container">
+                            <div className="sidebar-wrapper">
+                                <SidebarContainer />
+                            </div>
+                            <div className="content-wrapper">
+                                <Content />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </BrowserRouter>
-    )
+            </BrowserRouter>
+        )
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized,
+})
+
+export default connect(mapStateToProps, { initializedApp })(App)

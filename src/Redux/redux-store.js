@@ -8,20 +8,22 @@ import peopleReducer from "./people-reducer";
 import profileReducer from "./profile-reducer";
 import sideBarReducer from "./sidebar-reducer";
 import { reducer as FormReducere } from "redux-form";
+import appReducer from "./app-reducer";
 
 let reducers = combineReducers({
+  app: appReducer,
+  Auth: authReducer,
   SideBar: sideBarReducer,
   ProfilePage: profileReducer,
   FriendsPage: friendsReducer,
   MessagePage: messageReducer,
   GroupPage: groupReducer,
   PeoplePage: peopleReducer,
-  Auth: authReducer,
   form: FormReducere,
 });
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
-window.store = store
+window.store = store;
 
 export default store;

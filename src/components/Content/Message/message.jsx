@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
 import style from './message.module.css'
@@ -35,8 +35,9 @@ const Message = (props) => {
         } else return undefined
     })
 
-    const addMessage = (formData) => {
+    const addMessage = (formData, dispatch) => {
         props.addMessage(formData.newMessageText)
+        dispatch(reset("newMessage"))
     }
 
     return (

@@ -4,7 +4,6 @@ import { toggleFetching } from "./people-reducer";
 const SET_PROFILE_ID = "SET-PROFILE-ID";
 const SET_USER = "SET-USER";
 const SET_STATUS = "SET-STATUS";
-// const CHANGE_TEXT = "CHANGE-TEXT";
 const ADD_POST = "ADD-POST";
 
 let initialState = {
@@ -58,8 +57,6 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, userData: action.profileData };
     case SET_STATUS:
       return { ...state, status: action.status };
-    // case CHANGE_TEXT:
-    //   return { ...state, newPostText: action.postText };
     case ADD_POST:
       if (action.newPostText) {
         return {
@@ -91,9 +88,6 @@ export const setStatus = (status) => {
   return { type: SET_STATUS, status };
 };
 
-// export const changeText = (text) => {
-//   return { type: CHANGE_TEXT, postText: text };
-// };
 export const addPost = (newPostText) => {
   return { type: ADD_POST, newPostText: newPostText };
 };

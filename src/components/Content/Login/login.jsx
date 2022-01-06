@@ -9,7 +9,6 @@ import { Navigate } from 'react-router-dom';
 
 const Login = (props) => {
     const login = (formData) => {
-        console.log(formData);
         let { email, password, remember } = formData
         props.loginAuth(email, password, remember)
     }
@@ -38,7 +37,7 @@ const LoginForm = (props) => {
             <Field
                 component={Input}
                 className={style.input}
-                type="text"
+                type="password"
                 name="password"
                 placeholder='your password'
                 validate={[required]}
@@ -52,6 +51,7 @@ const LoginForm = (props) => {
                 />
                 remember me
             </label>
+            {props.error && <p className="formSummaryError">{props.error}</p>}
             <button className={style.submit}>Login</button>
         </form>
     )
