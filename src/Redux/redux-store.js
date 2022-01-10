@@ -22,7 +22,11 @@ let reducers = combineReducers({
   form: FormReducere,
 });
 
-let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+let forReduxDevTools = applyMiddleware(thunkMiddleware)(createStore)
+
+let store = forReduxDevTools(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+// let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 window.store = store;
 

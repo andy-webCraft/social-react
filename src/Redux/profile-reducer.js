@@ -93,30 +93,27 @@ export const addPost = (newPostText) => {
 };
 
 export const getUserId = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFetching(true));
-    ProfileAPI.getProfile(userId).then((response) => {
-      dispatch(setUser(response.data));
-      dispatch(toggleFetching(false));
-    });
+    let response = await ProfileAPI.getProfile(userId);
+    dispatch(setUser(response.data));
+    dispatch(toggleFetching(false));
   };
 };
 
 export const getStatus = (userId) => {
-  return (dispatch) => {
-    ProfileAPI.getStatus(userId).then((response) => {
-      dispatch(setStatus(response.data));
-    });
+  return async (dispatch) => {
+    let response = await ProfileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
   };
 };
 
 export const updateStatus = (status) => {
-  return (dispatch) => {
-    ProfileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
-    });
+  return async (dispatch) => {
+    let response = await ProfileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
   };
 };
 

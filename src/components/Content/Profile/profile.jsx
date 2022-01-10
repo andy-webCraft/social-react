@@ -5,12 +5,13 @@ import ProfileStatus from "./profile-status"
 import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
+import ProfileStatusWithHooks from "./profile-statusWithHooks";
 
 const maxLength10 = maxLengthCreator(10)
 
-const Profile = (props) => {
-    const addPost = (formData, dispatch) => {
-        props.addPost(formData.newPostText)
+const Profile = ({ userData, profileId, status, updateStatus, posts, addPost }) => {
+    const addPostHandle = (formData, dispatch) => {
+        addPost(formData.newPostText)
         dispatch(reset("profilePost"))
     }
 
@@ -18,13 +19,13 @@ const Profile = (props) => {
         <div className="profile">
             <div className={style.top}>
                 <div className={style.avatar}>
-                    <img src={props.userData.photos.large ? props.userData.photos.large : userAvatar} alt="avatar" className="img" />
+                    <img src={userData.photos.large ? userData.photos.large : userAvatar} alt="avatar" className="img" />
                 </div>
                 <div className={style.info}>
-                    <p className={style.name}>{props.userData.fullName}</p>
-                    {props.profileId === props.userData.userId
-                        ? <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
-                        : <p>{props.status}</p>
+                    <p className={style.name}>{userData.fullName}</p>
+                    {profileId === userData.userId
+                        ? <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+                        : <p>{status}</p>
                     }
                 </div>
             </div>
@@ -32,20 +33,20 @@ const Profile = (props) => {
                 <div className={style.description}>
                     <span>Contacts</span>
                     <ul className={style.list}>
-                        {Object.entries(props.userData.contacts).map(([key, value]) => {
+                        {Object.entries(userData.contacts).map(([key, value]) => {
                             if (value != null) return <li key={key} className={style.item}><b>{key}:</b> {value}</li>
                             else return null
                         })}
                     </ul>
                 </div>
             </div>
-            <ProfileReduxForm posts={props.posts} onSubmit={addPost} />
+            <ProfileReduxForm posts={posts} onSubmit={addPostHandle} />
         </div>
     )
 }
 
-const ProfilePosts = (props) => {
-    let posts = props.posts.map(((item) => {
+const ProfilePosts = ({ posts, handleSubmit }) => {
+    let userPosts = posts.map(((item) => {
         return (
             <div key={item.id} className={style.post}>
                 <p className={style.post_text}>{item.text}</p>
@@ -59,7 +60,7 @@ const ProfilePosts = (props) => {
 
     return (
         <div className={style.posts}>
-            <form onSubmit={props.handleSubmit} className={style.addPost}>
+            <form onSubmit={handleSubmit} className={style.addPost}>
                 <Field
                     component={TextArea}
                     name="newPostText"
@@ -73,7 +74,7 @@ const ProfilePosts = (props) => {
                 <button className={style.add}>Add post</button>
             </form>
             <div className={style.post_wrapper}>
-                {posts}
+                {userPosts}
             </div>
         </div>
     )

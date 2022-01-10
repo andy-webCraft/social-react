@@ -2,6 +2,7 @@ import React from "react";
 import style from './people.module.css'
 import userAvatar from "../../../assets/img/user.png"
 import { NavLink } from "react-router-dom";
+import User from "./user";
 
 let People = (props) => {
     // debugger
@@ -10,7 +11,7 @@ let People = (props) => {
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
     }
-
+    // debugger
     return (
         <div className="people">
             <div className={style.paggination}>
@@ -25,37 +26,9 @@ let People = (props) => {
                 })}
             </div>
             <ul className={style.list}>
-                {props.people.map((item) => {
-                    return (
-                        <li key={item.id} className={style.item}>
-                            <NavLink to={"/profile/" + item.id}>
-                                <div className={style.info}>
-                                    <div className={style.avatar}>
-                                        <img src={item.avatar != null ? item.avatar : userAvatar} alt="avatar" className="img" />
-                                    </div>
-                                    <div className={style.text}>
-                                        <p className={style.name}>{item.name}</p>
-                                        <p className={style.phrase}>{item.phrase}</p>
-                                    </div>
-                                </div>
-                            </NavLink>
-                            <div className={style.loca}>
-                                <p className={style.contry}>{item.contry}</p>
-                                <p className={style.city}>{item.city}</p>
-                            </div>
-                            <div className={style.action}>
-                                {item.followed
-                                    ? <button
-                                        disabled={props.isFollowingProgress.some(id => id === item.id)}
-                                        onClick={() => { props.unFollowing(item.id) }}>Unfollow</button>
-                                    : <button
-                                        disabled={props.isFollowingProgress.some(id => id === item.id)}
-                                        onClick={() => { props.following(item.id) }}>Follow</button>
-                                }
-                            </div>
-                        </li>
-                    )
-                }
+                {props.people.map((item) =>
+                    <User user={item} isFollowingProgress={props.isFollowingProgress}
+                        following={props.following} unFollowing={props.unFollowing} key={item.id} />
                 )}
             </ul>
             <button className={style.showMore}>Show More</button>
