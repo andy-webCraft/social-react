@@ -4,8 +4,7 @@ import style from './people.module.css'
 import userAvatar from "../../../assets/img/user.png"
 
 const User = ({ user, isFollowingProgress, following, unFollowing }) => {
-    // debugger
-    console.log("REFACTOR USER");
+    // console.log("REFACTOR USER");
     return (
         <li key={user.id} className={style.item}>
             <NavLink to={"/profile/" + user.id}>
