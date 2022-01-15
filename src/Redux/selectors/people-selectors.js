@@ -1,5 +1,5 @@
 export const getPeople = (state) => {
-  return state.PeoplePage.people;
+  return state.PeoplePage.currentPeople;
 };
 
 export const getPageSize = (state) => {

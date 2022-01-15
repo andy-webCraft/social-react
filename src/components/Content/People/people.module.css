@@ -70,13 +70,3 @@
   transform: translateY(3px);
   box-shadow: 0px 0px 0px 0 #00000080;
 }
-
-.paggination span {
-  font-size: 18px;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-.selectedPage {
-  font-weight: bold;
-}

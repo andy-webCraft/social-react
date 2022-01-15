@@ -28,7 +28,7 @@ class PeopleContainer extends React.Component {
                         totalUsersCount={this.props.totalUsersCount}
                         pageSize={this.props.pageSize}
                         currentPage={this.props.currentPage}
-                        people={this.props.people}
+                        currentPeople={this.props.currentPeople}
                         setCurrentPage={this.setCurrentPage}
                         isFollowingProgress={this.props.isFollowingProgress}
                         following={this.props.following}
@@ -39,20 +39,9 @@ class PeopleContainer extends React.Component {
     }
 }
 
-// let mapStateToProps = (state) => {
-//     return {
-//         people: state.PeoplePage.people,
-//         pageSize: state.PeoplePage.pageSize,
-//         totalUsersCount: state.PeoplePage.totalUsersCount,
-//         currentPage: state.PeoplePage.currentPage,
-//         isFetching: state.PeoplePage.isFetching,
-//         isFollowingProgress: state.PeoplePage.isFollowingProgress
-//     }
-// }
-
 let mapStateToProps = (state) => {
     return {
-        people: getPeople(state),
+        currentPeople: getPeople(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),

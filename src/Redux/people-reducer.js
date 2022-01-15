@@ -7,9 +7,9 @@ const FETCHING_TOGGLE = "FETCHING-TOGGLE";
 const FOLLOWING_TOGGLE = "FOLLOWING-TOGGLE";
 
 let intinalState = {
-  people: [],
-  pageSize: 5,
-  totalUsersCount: 25,
+  currentPeople: [],
+  pageSize: 10,
+  totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
   isFollowingProgress: [],
@@ -18,13 +18,17 @@ let intinalState = {
 let peopleReducer = (state = intinalState, action) => {
   switch (action.type) {
     case SET_USERS:
-      return { ...state, people: [...action.users] };
+      return {
+        ...state,
+        currentPeople: [...action.users],
+        totalUsersCount: action.totalUsersCount,
+      };
     case FETCHING_TOGGLE:
       return { ...state, isFetching: action.isFetching };
     case TOGGLE_FOLLOW:
       return {
         ...state,
-        people: state.people.map((item) => {
+        currentPeople: state.currentPeople.map((item) => {
           if (item.id === action.userId)
             return { ...item, followed: !item.followed };
           else return item;
@@ -44,8 +48,8 @@ let peopleReducer = (state = intinalState, action) => {
   }
 };
 
-export const setUsers = (users) => {
-  return { type: SET_USERS, users: users };
+export const setUsers = (users, totalUsersCount) => {
+  return { type: SET_USERS, users: users, totalUsersCount: totalUsersCount };
 };
 
 export const toggleFollow = (userId) => {
@@ -72,7 +76,7 @@ export const getUsers = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(toggleFetching(true));
     UsersAPI.getUsers(currentPage, pageSize).then((response) => {
-      dispatch(setUsers(response.data.items));
+      dispatch(setUsers(response.data.items, response.data.totalCount));
       dispatch(toggleFetching(false));
     });
   };
