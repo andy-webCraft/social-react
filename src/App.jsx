@@ -1,6 +1,6 @@
 import React from 'react';
 import './css/App.css';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import Content from './components/Content/content';
 import SidebarContainer from './components/Sidebar/sidebar-container';
 import HeaderContainer from './components/Header/header-container';
@@ -17,7 +17,7 @@ class App extends React.Component {
         if (!this.props.initialized) return <Preloader />
 
         return (
-            <BrowserRouter>
+            <HashRouter>
                 <div className="app-wrapper">
                     <HeaderContainer />
                     <div className="app-content">
@@ -31,7 +31,7 @@ class App extends React.Component {
                         </div>
                     </div>
                 </div>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 }
