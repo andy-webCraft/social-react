@@ -2,7 +2,11 @@
   "name": "learn-react-1",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD
   "homepage": "https://github.com/andy-webCraft/social-react/",
+=======
+  "homepage": "https://github.com/andy-webCraft/social-react",
+>>>>>>> 441757cabdbb3efb1899d4e233c896f4a1598732
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
