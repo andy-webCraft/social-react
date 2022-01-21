@@ -30,6 +30,11 @@ export const ProfileAPI = {
   updateStatus(status) {
     return instance.put(`profile/status`, { status: status });
   },
+  uploadPhoto(photo) {
+    let uploadData = new FormData();
+    uploadData.append("image", photo);
+    return instance.put(`profile/photo`, uploadData);
+  },
 };
 
 export const UsersAPI = {
