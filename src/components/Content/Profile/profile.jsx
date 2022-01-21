@@ -9,10 +9,17 @@ import ProfileStatusWithHooks from "./profile-statusWithHooks";
 
 const maxLength10 = maxLengthCreator(10)
 
-const Profile = ({ userData, profileId, status, updateStatus, posts, addPost }) => {
+const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto }) => {
+
     const addPostHandle = (formData, dispatch) => {
         addPost(formData.newPostText)
         dispatch(reset("profilePost"))
+    }
+
+    const setProfilePhoto = (e) => {
+        if (e.target.files.length) {
+            uploadProfilePhoto(e.target.files[0])
+        }
     }
 
     return (
@@ -20,6 +27,7 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost }) 
             <div className={style.top}>
                 <div className={style.avatar}>
                     <img src={userData.photos.large ? userData.photos.large : userAvatar} alt="avatar" className="img" />
+                    {(userData.userId === profileId) && <input type={"file"} name="profilePhoto" onChange={setProfilePhoto} />}
                 </div>
                 <div className={style.info}>
                     <p className={style.name}>{userData.fullName}</p>

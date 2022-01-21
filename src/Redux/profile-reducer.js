@@ -5,6 +5,7 @@ const SET_PROFILE_ID = "SET-PROFILE-ID";
 const SET_USER = "SET-USER";
 const SET_STATUS = "SET-STATUS";
 const ADD_POST = "ADD-POST";
+const SET_PHOTO = "SET-PHOTO";
 
 let initialState = {
   profileId: "",
@@ -13,7 +14,7 @@ let initialState = {
     userId: "",
     fullName: "",
     aboutMe: "",
-    photos: "",
+    photos: {},
     contacts: {
       facebook: null,
       website: null,
@@ -71,6 +72,11 @@ const profileReducer = (state = initialState, action) => {
           ],
         };
       } else return state;
+    case SET_PHOTO:
+      return {
+        ...state,
+        userData: { ...state.userData, photos: action.photos },
+      };
     default:
       return state;
   }
@@ -90,6 +96,9 @@ export const setStatus = (status) => {
 
 export const addPost = (newPostText) => {
   return { type: ADD_POST, newPostText: newPostText };
+};
+export const uploadProfilePhotoSuccsess = (photos) => {
+  return { type: SET_PHOTO, photos: photos };
 };
 
 export const getUserId = (userId) => {
@@ -113,6 +122,15 @@ export const updateStatus = (status) => {
     let response = await ProfileAPI.updateStatus(status);
     if (response.data.resultCode === 0) {
       dispatch(setStatus(status));
+    }
+  };
+};
+
+export const uploadProfilePhoto = (photo) => {
+  return async (dispatch) => {
+    let response = await ProfileAPI.uploadPhoto(photo);
+    if (response.data.resultCode === 0) {
+      dispatch(uploadProfilePhotoSuccsess(response.data.data.photos));
     }
   };
 };
