@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import style from "./header.module.css";
 import userAvatar from "../../assets/img/user.png"
 
-const Header = (props) => {
+const Header = ({ isLogin, login, profileAvatar, logoutAuth }) => {
     // debugger
     return (
         <header>
@@ -23,13 +23,13 @@ const Header = (props) => {
                         <p className={style.mail}>blabla@bla.ru</p>
                     </div>
                     <div className={style.auth}>
-                        {props.isLogin
+                        {isLogin
                             ? <div className={style.profile}>
                                 <NavLink className={style.profileInfo} to='/profile'>
-                                    <img src={props.profileAvatar ? props.profileAvatar : userAvatar} alt="avatar" className={style.avatar} />
-                                    <span>{props.login}</span>
+                                    <img src={profileAvatar ? profileAvatar : userAvatar} alt="avatar" className={style.avatar} />
+                                    <span>{login}</span>
                                 </NavLink>
-                                <button className={style.logoutBtn} onClick={props.logoutAuth}>Logout</button>
+                                <button className={style.logoutBtn} onClick={logoutAuth}>Logout</button>
                             </div>
                             : <NavLink className="greenBtn" to='/login'>Login</NavLink>
                         }

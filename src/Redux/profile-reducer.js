@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { ProfileAPI } from "../api/api";
-import { parseErrorsText } from "../tools/validators";
+import { parseErrorsText } from "../tools/parse";
 import { toggleFetching } from "./people-reducer";
 
 const SET_PROFILE_ID = "SET-PROFILE-ID";
@@ -144,7 +144,10 @@ export const changeProfileInfo = (profileInfo) => {
       dispatch(getUserId(profileInfo.userId));
     } else {
       let errors = parseErrorsText(response.data.messages);
-      dispatch(stopSubmit("profileInfoForm", errors));
+      console.log(Object.values(errors)[0]);
+      dispatch(
+        stopSubmit("profileInfoForm", { _error: Object.values(errors)[0] })
+      );
       return Promise.reject(errors);
     }
   };

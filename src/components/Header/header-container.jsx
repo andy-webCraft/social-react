@@ -15,7 +15,8 @@ let mapStateToProps = (state) => {
     return {
         isLogin: state.Auth.isLogin,
         login: state.Auth.login,
-        profileAvatar: state.Auth.avatar
+        profileAvatar: state.Auth.avatar,
+        // captcha: state.Auth.captcha,
     }
 }
 

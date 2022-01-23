@@ -1,27 +1,33 @@
 import { stopSubmit } from "redux-form";
-import { AuthAPI, ProfileAPI } from "../api/api";
+import { AuthAPI, ProfileAPI, SecurityAPI } from "../api/api";
+import { parseErrorsText } from "../tools/parse";
 import { toggleFetching } from "./people-reducer";
 import { setProfileId } from "./profile-reducer";
 
 const SET_AUTH_USER_DATA = "SET-AUTH-USER-DATA";
 const SET_PROFILE_AVATAR = "SET-PROFILE-AVATAR";
+const SET_CAPTCHA_URL = "SET-CAPTCHA-URL";
 
 let initialState = {
   userId: null,
   login: null,
   email: null,
-  name: null,
+  // name: null,
   avatar: null,
   isLogin: false,
   isFetching: false,
+  captcha: null,
+  captchaUrl: null,
 };
 
 let authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_AUTH_USER_DATA:
-      return { ...state, ...action.data };
+      return { ...state, ...action.data, captcha: null, captchaUrl: null };
     case SET_PROFILE_AVATAR:
       return { ...state, avatar: action.avatar };
+    case SET_CAPTCHA_URL:
+      return { ...state, captchaUrl: action.captchaUrl };
     default:
       return state;
   }
@@ -35,22 +41,25 @@ export const setProfileAvatar = (avatar) => {
   return { type: SET_PROFILE_AVATAR, avatar };
 };
 
-export const loginAuth = (
-  email,
-  password,
-  remember = false,
-  captcha = true
-) => {
+export const setCaptchaUrl = (captchaUrl) => {
+  return { type: SET_CAPTCHA_URL, captchaUrl };
+};
+
+export const loginAuth = (email, password, remember, captcha) => {
   return (dispatch) => {
     dispatch(toggleFetching(true));
     AuthAPI.login(email, password, remember, captcha).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(checkAuth());
       } else {
+        if (response.data.resultCode === 10) {
+          dispatch(getCaptcha());
+        }
         let errorMessage =
           response.data.messages.length > 0
             ? response.data.messages[0]
             : "Some Error";
+        // let errors = parseErrorsText(response.data.messages)   // рефакт
         dispatch(stopSubmit("login", { _error: errorMessage }));
       }
     });
@@ -82,6 +91,15 @@ export const checkAuth = () => {
         });
       }
       dispatch(toggleFetching(false));
+    });
+  };
+};
+
+export const getCaptcha = () => {
+  return (dispatch) => {
+    SecurityAPI.getCaptchaUrl().then((response) => {
+      const captchaUrl = response.data.url;
+      dispatch(setCaptchaUrl(captchaUrl));
     });
   };
 };
