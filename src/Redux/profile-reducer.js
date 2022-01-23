@@ -1,5 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { ProfileAPI } from "../api/api";
+import { parseErrorsText } from "../tools/validators";
 import { toggleFetching } from "./people-reducer";
 
 const SET_PROFILE_ID = "SET-PROFILE-ID";
@@ -139,16 +140,12 @@ export const uploadProfilePhoto = (photo) => {
 export const changeProfileInfo = (profileInfo) => {
   return async (dispatch) => {
     let response = await ProfileAPI.setProfileInfo(profileInfo);
-    console.log("SEND");
     if (response.data.resultCode === 0) {
       dispatch(getUserId(profileInfo.userId));
     } else {
-      let errorMessage =
-        response.data.messages.length > 0
-          ? response.data.messages[0]
-          : "Some Error";
-      dispatch(stopSubmit("profileInfoForm", { _error: errorMessage }));
-      return Promise.reject(errorMessage)
+      let errors = parseErrorsText(response.data.messages);
+      dispatch(stopSubmit("profileInfoForm", errors));
+      return Promise.reject(errors);
     }
   };
 };

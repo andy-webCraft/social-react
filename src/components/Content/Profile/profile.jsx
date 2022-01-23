@@ -23,7 +23,7 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
     let [editMode, setEditMode] = useState(false)
     const toggleEditMode = () => setEditMode(!editMode);
 
-    
+
 
     const addPostHandle = (formData, dispatch) => {
         addPost(formData.newPostText)
@@ -36,10 +36,10 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
         }
     }
 
-    const setProfileInfo = (formData) => {                          // <= UseEffect
+    const setProfileInfo = (formData) => {
         let payload = { userId: userData.userId, ...formData }
         changeProfileInfo(payload).then(
-            () => toggleEditMode()
+            // () => toggleEditMode()
         )
     }
 
@@ -60,8 +60,8 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
             </div>
             <div className={style.bottom}>
                 {editMode
-                    ? <ProfileInfoForm initialValues={initialValuesForm} userData={userData} toggleEditMode={toggleEditMode} onSubmit={setProfileInfo} />
-                    : <ProfileInfo contacts={userData.contacts} toggleEditMode={toggleEditMode} isUserProfile={isUserProfile} />
+                    ? <ProfileInfoForm initialValues={initialValuesForm} toggleEditMode={toggleEditMode} onSubmit={setProfileInfo} />
+                    : <ProfileInfo userData={userData} toggleEditMode={toggleEditMode} isUserProfile={isUserProfile} />
                 }
             </div>
             <ProfileReduxForm posts={posts} onSubmit={addPostHandle} />
