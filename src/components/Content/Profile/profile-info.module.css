@@ -1,0 +1,13 @@
+.wrapper {
+}
+.list {
+  /* display: flex;
+  flex-direction: column; */
+}
+.item {
+  display: flex;
+  margin-bottom: 15px;
+}
+.item input {
+  margin-left: 10px;
+}

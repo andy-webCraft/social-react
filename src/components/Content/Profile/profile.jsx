@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from './profile.module.css'
 import userAvatar from "../../../assets/img/user.png"
 import ProfileStatus from "./profile-status"
@@ -6,10 +6,24 @@ import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
 import ProfileStatusWithHooks from "./profile-statusWithHooks";
+import { ProfileInfo, ProfileInfoForm } from "./profile-info";
 
 const maxLength10 = maxLengthCreator(10)
 
-const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto }) => {
+const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo }) => {
+
+    const isUserProfile = userData.userId === profileId
+    let initialValuesForm;
+    if (isUserProfile) {
+        initialValuesForm = { ...userData, contacts: { ...userData.contacts } }
+        delete initialValuesForm.userId
+        delete initialValuesForm.photos
+    }
+
+    let [editMode, setEditMode] = useState(false)
+    const toggleEditMode = () => setEditMode(!editMode);
+
+    
 
     const addPostHandle = (formData, dispatch) => {
         addPost(formData.newPostText)
@@ -22,12 +36,19 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
         }
     }
 
+    const setProfileInfo = (formData) => {                          // <= UseEffect
+        let payload = { userId: userData.userId, ...formData }
+        changeProfileInfo(payload).then(
+            () => toggleEditMode()
+        )
+    }
+
     return (
         <div className="profile">
             <div className={style.top}>
                 <div className={style.avatar}>
                     <img src={userData.photos.large ? userData.photos.large : userAvatar} alt="avatar" className="img" />
-                    {(userData.userId === profileId) && <input type={"file"} name="profilePhoto" onChange={setProfilePhoto} />}
+                    {isUserProfile && <input type={"file"} name="profilePhoto" onChange={setProfilePhoto} />}
                 </div>
                 <div className={style.info}>
                     <p className={style.name}>{userData.fullName}</p>
@@ -38,15 +59,10 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
                 </div>
             </div>
             <div className={style.bottom}>
-                <div className={style.description}>
-                    <span>Contacts</span>
-                    <ul className={style.list}>
-                        {Object.entries(userData.contacts).map(([key, value]) => {
-                            if (value != null) return <li key={key} className={style.item}><b>{key}:</b> {value}</li>
-                            else return null
-                        })}
-                    </ul>
-                </div>
+                {editMode
+                    ? <ProfileInfoForm initialValues={initialValuesForm} userData={userData} toggleEditMode={toggleEditMode} onSubmit={setProfileInfo} />
+                    : <ProfileInfo contacts={userData.contacts} toggleEditMode={toggleEditMode} isUserProfile={isUserProfile} />
+                }
             </div>
             <ProfileReduxForm posts={posts} onSubmit={addPostHandle} />
         </div>

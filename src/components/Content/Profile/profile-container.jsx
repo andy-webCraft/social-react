@@ -1,5 +1,5 @@
 import React from "react"
-import { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto } from "../../../Redux/profile-reducer";
+import { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo } from "../../../Redux/profile-reducer";
 import { connect } from "react-redux";
 import Profile from './profile'
 import Preloader from "../../common/preloader/preloader";
@@ -46,6 +46,6 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto }),
+    connect(mapStateToProps, { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo }),
     withAuthRedirect
 )(ProfileContainer)

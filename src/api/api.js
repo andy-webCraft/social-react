@@ -35,6 +35,9 @@ export const ProfileAPI = {
     uploadData.append("image", photo);
     return instance.put(`profile/photo`, uploadData);
   },
+  setProfileInfo(profileInfo) {
+    return instance.put(`/profile`, profileInfo);
+  },
 };
 
 export const UsersAPI = {

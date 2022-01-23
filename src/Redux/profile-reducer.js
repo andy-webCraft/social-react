@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { ProfileAPI } from "../api/api";
 import { toggleFetching } from "./people-reducer";
 
@@ -131,6 +132,23 @@ export const uploadProfilePhoto = (photo) => {
     let response = await ProfileAPI.uploadPhoto(photo);
     if (response.data.resultCode === 0) {
       dispatch(uploadProfilePhotoSuccsess(response.data.data.photos));
+    }
+  };
+};
+
+export const changeProfileInfo = (profileInfo) => {
+  return async (dispatch) => {
+    let response = await ProfileAPI.setProfileInfo(profileInfo);
+    console.log("SEND");
+    if (response.data.resultCode === 0) {
+      dispatch(getUserId(profileInfo.userId));
+    } else {
+      let errorMessage =
+        response.data.messages.length > 0
+          ? response.data.messages[0]
+          : "Some Error";
+      dispatch(stopSubmit("profileInfoForm", { _error: errorMessage }));
+      return Promise.reject(errorMessage)
     }
   };
 };
