@@ -26,7 +26,7 @@ class App extends React.Component {
                                 <SidebarContainer />
                             </div>
                             <div className="content-wrapper">
-                                <Content />
+                                <Content isLogin={this.props.isLogin} />
                             </div>
                         </div>
                     </div>
@@ -38,6 +38,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
+    isLogin: state.Auth.isLogin,
 })
 
 export default connect(mapStateToProps, { initializedApp })(App)
