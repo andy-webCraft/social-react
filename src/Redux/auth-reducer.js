@@ -4,7 +4,7 @@ import { parseErrorsText } from "../tools/parse";
 import { toggleFetching } from "./people-reducer";
 import { setProfileId } from "./profile-reducer";
 
-const SET_AUTH_USER_DATA = "SET-AUTH-USER-DATA";
+const SET_AUTH_USER_DATA = "SET-auth-USER-DATA";
 const SET_PROFILE_AVATAR = "SET-PROFILE-AVATAR";
 const SET_CAPTCHA_URL = "SET-CAPTCHA-URL";
 

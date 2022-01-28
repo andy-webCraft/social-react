@@ -73,8 +73,8 @@ const LoginReduxForm = reduxForm({ form: "login" })(LoginForm)
 
 const mapStateToProps = (state) => {
     return {
-        isLogin: state.Auth.isLogin,
-        captchaUrl: state.Auth.captchaUrl,
+        isLogin: state.auth.isLogin,
+        captchaUrl: state.auth.captchaUrl,
     }
 }
 

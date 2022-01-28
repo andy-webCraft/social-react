@@ -6,8 +6,8 @@ import { compose } from "redux";
 
 let mapStateToProps = (state) => {
     return {
-        friends: state.FriendsPage.friends,
-        messages: state.MessagePage.messages,
+        friends: state.friendsPage.friends,
+        messages: state.messagePage.messages,
     }
 }
 
