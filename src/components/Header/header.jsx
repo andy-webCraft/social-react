@@ -4,13 +4,12 @@ import style from "./header.module.css";
 import userAvatar from "../../assets/img/user.png"
 
 const Header = ({ isLogin, login, profileAvatar, logoutAuth }) => {
-    // debugger
     return (
         <header>
             <div className="container">
                 <div className={style.wrapper}>
                     <div className={style.logo}>
-                        <NavLink to={'/profile'}>
+                        <NavLink to={'/'}>
                             <img
                                 src='https://heilpraktiker-erftstadt.de/wp-content/uploads/2013/03/logo-1446293_1920-300x236.png'
                                 alt="logo"

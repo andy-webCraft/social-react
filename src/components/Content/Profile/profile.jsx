@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import style from './profile.module.css'
 import userAvatar from "../../../assets/img/user.png"
-import ProfileStatus from "./profile-status"
 import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
-import ProfileStatusWithHooks from "./profile-statusWithHooks";
+import ProfileStatus from "./profile-status";
 import { ProfileInfo, ProfileInfoForm } from "./profile-info";
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength50 = maxLengthCreator(50)
 
 const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo }) => {
-
     const isUserProfile = userData.userId === profileId
     let initialValuesForm;
     if (isUserProfile) {
@@ -37,10 +35,12 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
     }
 
     const setProfileInfo = (formData) => {
-        let payload = { userId: userData.userId, ...formData }
-        changeProfileInfo(payload).then(
-            // () => toggleEditMode()
-        )
+        if (JSON.stringify(formData) !== JSON.stringify(initialValuesForm)) {
+            let payload = { userId: userData.userId, ...formData }
+            changeProfileInfo(payload).then(
+                // () => toggleEditMode()       // рефакт
+            )
+        } else toggleEditMode()
     }
 
     return (
@@ -48,21 +48,27 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
             <div className={style.top}>
                 <div className={style.avatar}>
                     <img src={userData.photos.large ? userData.photos.large : userAvatar} alt="avatar" className="img" />
+
                     {isUserProfile && <input type={"file"} name="profilePhoto" onChange={setProfilePhoto} />}
+
                 </div>
                 <div className={style.info}>
                     <p className={style.name}>{userData.fullName}</p>
+
                     {profileId === userData.userId
-                        ? <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
+                        ? <ProfileStatus status={status} updateStatus={updateStatus} />
                         : <p>{status}</p>
                     }
+
                 </div>
             </div>
             <div className={style.bottom}>
+
                 {editMode
                     ? <ProfileInfoForm initialValues={initialValuesForm} toggleEditMode={toggleEditMode} onSubmit={setProfileInfo} />
                     : <ProfileInfo userData={userData} toggleEditMode={toggleEditMode} isUserProfile={isUserProfile} />
                 }
+
             </div>
             <ProfileReduxForm posts={posts} onSubmit={addPostHandle} />
         </div>
@@ -92,7 +98,7 @@ const ProfilePosts = ({ posts, handleSubmit }) => {
                     placeholder="Write what your think..."
                     cols="100"
                     rows="3"
-                    validate={[required, maxLength10]}
+                    validate={[required, maxLength50]}
                 />
                 <br />
                 <button className={style.add}>Add post</button>

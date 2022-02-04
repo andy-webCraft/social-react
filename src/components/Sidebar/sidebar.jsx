@@ -2,8 +2,8 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 import style from './sidebar.module.css'
 
-const sidebar = (props) => {
-    let nav = props.navData.map((item) => {
+const Sidebar = ({ navData }) => {
+    const nav = navData.map((item) => {
         return (
             <li key={item.id} className={style.item}>
                 <NavLink to={`/${item.to}`}>{item.name}</NavLink>
@@ -20,4 +20,4 @@ const sidebar = (props) => {
     )
 }
 
-export default sidebar
+export default Sidebar

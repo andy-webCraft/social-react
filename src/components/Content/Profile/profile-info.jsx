@@ -4,13 +4,19 @@ import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { Input } from "../../common/formControl/formControl";
 
-const maxLength10 = maxLengthCreator(10)
+const maxLength20 = maxLengthCreator(20)
 
 const renderFields = (obj, typeField, fieldNamePrefix = null) => {
     switch (typeField) {
         case "text": {
             return Object.entries(obj).map(([key, value]) => {
-                if (typeof value !== 'object' && value) return <li key={key} className={style.item}><b>{key}:</b> {value}</li>
+                if (typeof value !== 'object' && value !== "") {
+                    let valueField = value
+                    if (typeof valueField === "boolean") {
+                        valueField = valueField === true ? "yes" : "no"
+                    }
+                    return <li key={key} className={style.item}><b>{key}:</b>{valueField}</li>
+                }
                 else return null
             })
         }
@@ -20,8 +26,10 @@ const renderFields = (obj, typeField, fieldNamePrefix = null) => {
                     return <li key={key} className={style.item}><b>{key}:</b>
                         <Field
                             component={Input}
+                            type={typeof value === "boolean" ? "checkbox" : "text"}
                             name={fieldNamePrefix ? fieldNamePrefix + '.' + key : key}
                             value={value}
+                            validate={maxLength20}
                         />
                     </li>
                 } else return null
@@ -30,6 +38,7 @@ const renderFields = (obj, typeField, fieldNamePrefix = null) => {
         default: return null
     }
 }
+
 export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
 
     return (
@@ -54,7 +63,7 @@ const ProfileInfoEdit = ({ initialValues, handleSubmit, error }) => {
             <span>Info</span>
             <form onSubmit={handleSubmit}>
                 <button>Save</button>
-                {error && <p className="formSummaryError">{error}</p>}
+                {/* {error && <p className="formSummaryError">{error}</p>} */}
                 <ul className={style.list}>
                     {renderFields(initialValues, "input")}
                     <span>Contacts</span>

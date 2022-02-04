@@ -1,50 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import style from "./profile.module.css"
 
-class ProfileStatus extends React.Component {
-    state = {
-        statusText: this.props.status,
-        placeholder: "press click for change your status...",
-        editMode: false,
+const ProfileStatus = ({ status, updateStatus }) => {
+
+    let [editMode, setEditMode] = useState(false)
+    let [statusText, setStatusText] = useState(status)
+
+    useEffect(() => {
+        setStatusText(status)
+    }, [status])
+
+    const toggleeEditMode = () => {
+        setEditMode(!editMode)
+        if (status !== statusText) updateStatus(statusText)
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({
-                statusText: this.props.status
-            })
-        }
+    const changeStatusText = (event) => {
+        setStatusText(event.currentTarget.value)
     }
 
-    toggleeEditMode = () => {
-        this.setState({
-            editMode: !this.state.editMode
-        })
-        this.props.updateStatus(this.state.statusText)
-    }
-
-    changeStatusText = (event) => {
-        this.setState({
-            statusText: event.currentTarget.value
-        })
-    }
-
-    render() {
-        return (
-            <div className={style.status}>
-                {!this.state.editMode
-                    ? <p onClick={this.toggleeEditMode}>
-                        {this.props.status ? this.props.status : this.state.placeholder}
-                    </p>
-                    : <input onBlur={this.toggleeEditMode}
-                        autoFocus={true}
-                        onChange={this.changeStatusText}
-                        value={this.state.statusText}
-                        type="text" name="status" id="profileStatus" />
-                }
-            </div>
-        )
-    }
+    return (
+        <div className={style.status}>
+            {editMode
+                ? <input onBlur={toggleeEditMode}
+                    autoFocus={true}
+                    onChange={changeStatusText}
+                    value={statusText}
+                    type="text" name="status" id="profileStatus" />
+                : <p onClick={toggleeEditMode}>
+                    {status ? status : "press click for change your status..."}
+                </p>
+            }
+        </div>
+    )
 }
 
 export default ProfileStatus

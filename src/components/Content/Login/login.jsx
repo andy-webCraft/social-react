@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 const Login = ({ isLogin, captchaUrl, loginAuth }) => {
-    const login = (formData) => {
+    const loginCheck = (formData) => {
         let { email, password, remember, captcha } = formData
         loginAuth(email, password, remember, captcha)
     }
@@ -18,7 +18,7 @@ const Login = ({ isLogin, captchaUrl, loginAuth }) => {
     return (
         <div className="login">
             <span>Login</span>
-            <LoginReduxForm captchaUrl={captchaUrl} onSubmit={login} />
+            <LoginReduxForm captchaUrl={captchaUrl} onSubmit={loginCheck} />
         </div>
     )
 }

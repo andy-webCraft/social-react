@@ -9,12 +9,12 @@ import Login from "./Login/login";
 import Preloader from "../common/preloader/preloader";
 const PeopleContainer = React.lazy(() => import("./People/people-container"));
 
-const Content = (props) => {
+const Content = () => {
     return (
         <div className="content">
             <Suspense fallback={<Preloader />}>
                 <Routes>
-                    <Route path='' element={props.isLogin ? <Navigate to='/profile' /> : <Navigate to='/login' />} /> 
+                    <Route path='' element={<Navigate to='/profile' />} /> 
                     <Route path='/profile'>
                         <Route path='' element={<ProfileContainer />} />
                         <Route path=':userId' element={<ProfileContainer math={useMatch("profile/:userId")} />} />

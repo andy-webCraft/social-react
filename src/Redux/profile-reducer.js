@@ -144,10 +144,7 @@ export const changeProfileInfo = (profileInfo) => {
       dispatch(getUserId(profileInfo.userId));
     } else {
       let errors = parseErrorsText(response.data.messages);
-      console.log(Object.values(errors)[0]);
-      dispatch(
-        stopSubmit("profileInfoForm", { _error: Object.values(errors)[0] })
-      );
+      dispatch(stopSubmit("profileInfoForm", errors));
       return Promise.reject(errors);
     }
   };

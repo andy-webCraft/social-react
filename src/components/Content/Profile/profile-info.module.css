@@ -8,6 +8,6 @@
   display: flex;
   margin-bottom: 15px;
 }
-.item input {
-  margin-left: 10px;
+.item b {
+  margin-right: 10px;
 }

@@ -79,19 +79,18 @@ export const logoutAuth = () => {
 };
 
 export const checkAuth = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFetching(true));
-    return AuthAPI.checkAuth().then((response) => {
-      if (response.data.resultCode === 0) {
-        let { id, login, email } = response.data.data;
-        dispatch(setProfileId(id));
-        dispatch(setAuthUserData(id, login, email, true));
-        ProfileAPI.getProfile(id).then((response) => {
-          dispatch(setProfileAvatar(response.data.photos.small));
-        });
-      }
-      dispatch(toggleFetching(false));
-    });
+    const response = await AuthAPI.checkAuth();
+    if (response.data.resultCode === 0) {
+      let { id, login, email } = response.data.data;
+      dispatch(setProfileId(id));
+      dispatch(setAuthUserData(id, login, email, true));
+      ProfileAPI.getProfile(id).then((response) => {
+        dispatch(setProfileAvatar(response.data.photos.small));
+      });
+    }
+    dispatch(toggleFetching(false));
   };
 };
 

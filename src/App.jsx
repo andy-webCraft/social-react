@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './css/App.css';
 import { HashRouter } from 'react-router-dom';
 import Content from './components/Content/content';
@@ -8,17 +8,14 @@ import { connect } from 'react-redux';
 import { initializedApp } from './Redux/app-reducer';
 import Preloader from './components/common/preloader/preloader';
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.initializedApp()
-    }
+const App = ({ initialized, initializedApp }) => {
+    useEffect(() => initializedApp(), [initialized, initializedApp])
 
-    render() {
-        if (!this.props.initialized) return <Preloader />
-
-        return (
-            <HashRouter>
-                <div className="app-wrapper">
+    return (
+        <HashRouter>
+            {!initialized
+                ? <Preloader />
+                : <div className="app-wrapper">
                     <HeaderContainer />
                     <div className="app-content">
                         <div className="container">
@@ -26,19 +23,18 @@ class App extends React.Component {
                                 <SidebarContainer />
                             </div>
                             <div className="content-wrapper">
-                                <Content isLogin={this.props.isLogin} />
+                                <Content />
                             </div>
                         </div>
                     </div>
                 </div>
-            </HashRouter>
-        )
-    }
+            }
+        </HashRouter>
+    )
 }
 
 const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
-    isLogin: state.Auth.isLogin,
 })
 
 export default connect(mapStateToProps, { initializedApp })(App)
