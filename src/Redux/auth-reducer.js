@@ -46,42 +46,40 @@ export const setCaptchaUrl = (captchaUrl) => {
 };
 
 export const loginAuth = (email, password, remember, captcha) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFetching(true));
-    AuthAPI.login(email, password, remember, captcha).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(checkAuth());
-      } else {
-        if (response.data.resultCode === 10) {
-          dispatch(getCaptcha());
-        }
-        let errorMessage =
-          response.data.messages.length > 0
-            ? response.data.messages[0]
-            : "Some Error";
-        // let errors = parseErrorsText(response.data.messages)   // рефакт
-        dispatch(stopSubmit("login", { _error: errorMessage }));
+    let response = await AuthAPI.login(email, password, remember, captcha);
+    if (response.data.resultCode === 0) {
+      dispatch(checkAuth());
+    } else {
+      if (response.data.resultCode === 10) {
+        dispatch(getCaptcha());
       }
-    });
+      let errorMessage =
+        response.data.messages.length > 0
+          ? response.data.messages[0]
+          : "Some Error";
+      // let errors = parseErrorsText(response.data.messages)   // рефакт
+      dispatch(stopSubmit("login", { _error: errorMessage }));
+    }
     dispatch(toggleFetching(false));
   };
 };
 
 export const logoutAuth = () => {
-  return (dispatch) => {
-    AuthAPI.logout().then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
-        dispatch(setProfileAvatar(null));
-      }
-    });
+  return async (dispatch) => {
+    let response = await AuthAPI.logout();
+    if (response.data.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false));
+      dispatch(setProfileAvatar(null));
+    }
   };
 };
 
 export const checkAuth = () => {
   return async (dispatch) => {
     dispatch(toggleFetching(true));
-    const response = await AuthAPI.checkAuth();
+    let response = await AuthAPI.checkAuth();
     if (response.data.resultCode === 0) {
       let { id, login, email } = response.data.data;
       dispatch(setProfileId(id));
@@ -95,11 +93,10 @@ export const checkAuth = () => {
 };
 
 export const getCaptcha = () => {
-  return (dispatch) => {
-    SecurityAPI.getCaptchaUrl().then((response) => {
-      const captchaUrl = response.data.url;
-      dispatch(setCaptchaUrl(captchaUrl));
-    });
+  return async (dispatch) => {
+    let response = await SecurityAPI.getCaptchaUrl();
+    const captchaUrl = response.data.url;
+    dispatch(setCaptchaUrl(captchaUrl));
   };
 };
 

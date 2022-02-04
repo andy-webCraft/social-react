@@ -1,4 +1,3 @@
-// const MESSAGE_TEXT = "MESSAGE-TEXT";
 const ADD_MESSAGE = "ADD-MESSAGE";
 
 let initialState = {
@@ -33,9 +32,6 @@ let initialState = {
 
 const messageReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case MESSAGE_TEXT:
-    //   return { ...state, newMessageText: action.messageText };
-    /* falls through */
     case ADD_MESSAGE:
       if (action.newMessageText) {
         return {
@@ -49,16 +45,11 @@ const messageReducer = (state = initialState, action) => {
             },
           ],
         };
-      }
-    /* falls through */
+      } else return state
     default:
       return state;
   }
 };
-
-// export const changeMessageActionCreator = (text) => {
-//   return { type: MESSAGE_TEXT, messageText: text };
-// };
 
 export const addMessage = (newMessageText) => {
   return { type: ADD_MESSAGE, newMessageText: newMessageText };

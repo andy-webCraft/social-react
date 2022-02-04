@@ -10,7 +10,7 @@ import { ProfileInfo, ProfileInfoForm } from "./profile-info";
 const maxLength50 = maxLengthCreator(50)
 
 const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo }) => {
-    const isUserProfile = userData.userId === profileId
+    let isUserProfile = userData.userId === profileId
     let initialValuesForm;
     if (isUserProfile) {
         initialValuesForm = { ...userData, contacts: { ...userData.contacts } }

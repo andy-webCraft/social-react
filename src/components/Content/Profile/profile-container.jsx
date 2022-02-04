@@ -5,7 +5,6 @@ import Profile from './profile'
 import Preloader from "../../common/preloader/preloader";
 import { withAuthRedirect } from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
-import { useState } from "react";
 
 // class ProfileContainer extends React.Component {
 
@@ -38,11 +37,13 @@ import { useState } from "react";
 
 const ProfileContainer = (props) => {
 
+    let { math, profileId, getUserId, getStatus } = props
+
     useEffect(() => {
-        let id = props.math ? props.math.params.userId : props.profileId;
-        props.getUserId(id)
-        props.getStatus(id)
-    }, [props.math])
+        let id = math ? math.params.userId : profileId;
+        getUserId(id)
+        getStatus(id)
+    }, [math, profileId, getUserId, getStatus])
 
     return (
         props.isFetching ? <Preloader /> : <Profile {...props} />

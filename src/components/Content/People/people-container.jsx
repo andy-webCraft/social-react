@@ -41,9 +41,11 @@ import { getCurrentPage, getIsFetching, getIsFollowingProgress, getPageSize, get
 
 const PeopleContainer = (props) => {
 
+    let { getUsers, currentPage, pageSize } = props
+
     useEffect(() => {
-        props.getUsers(props.currentPage, props.pageSize)
-    }, [props.currentPage, props.pageSize])
+        getUsers(currentPage, pageSize)
+    }, [getUsers, currentPage, pageSize])
 
     const setCurrentPage = (currentPage) => {
         props.setPage(currentPage)

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import style from './profile-info.module.css'
-import { Field, reduxForm, reset } from "redux-form";
-import { maxLengthCreator, required } from "../../../tools/validators";
+import { Field, reduxForm } from "redux-form";
+import { maxLengthCreator } from "../../../tools/validators";
 import { Input } from "../../common/formControl/formControl";
 
 const maxLength20 = maxLengthCreator(20)
