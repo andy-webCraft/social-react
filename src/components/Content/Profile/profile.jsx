@@ -37,9 +37,9 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
     const setProfileInfo = (formData) => {
         if (JSON.stringify(formData) !== JSON.stringify(initialValuesForm)) {
             let payload = { userId: userData.userId, ...formData }
-            changeProfileInfo(payload).then(
-                // () => toggleEditMode()       // рефакт
-            )
+            changeProfileInfo(payload)/*.then(
+                () => toggleEditMode()       // рефакт
+            )*/
         } else toggleEditMode()
     }
 

@@ -3,8 +3,7 @@ import { NavLink } from 'react-router-dom';
 import style from './people.module.css'
 import userAvatar from "../../../assets/img/user.png"
 
-const User = ({ user, isFollowingProgress, following, unFollowing }) => {
-    // console.log("REFACTOR USER");
+const User = ({ user, isFollowingProgress, following, unFollowing, isAuthorized }) => {
     return (
         <li key={user.id} className={style.item}>
             <NavLink to={"/profile/" + user.id}>
@@ -22,16 +21,18 @@ const User = ({ user, isFollowingProgress, following, unFollowing }) => {
                 <p className={style.contry}>{user.contry}</p>
                 <p className={style.city}>{user.city}</p>
             </div>
-            <div className={style.action}>
-                {user.followed
-                    ? <button
-                        disabled={isFollowingProgress.some(id => id === user.id)}
-                        onClick={() => { unFollowing(user.id) }}>Unfollow</button>
-                    : <button
-                        disabled={isFollowingProgress.some(id => id === user.id)}
-                        onClick={() => { following(user.id) }}>Follow</button>
-                }
-            </div>
+            {isAuthorized &&
+                <div className={style.action}>
+                    {user.followed
+                        ? <button
+                            disabled={isFollowingProgress.some(id => id === user.id)}
+                            onClick={() => { unFollowing(user.id) }}>Unfollow</button>
+                        : <button
+                            disabled={isFollowingProgress.some(id => id === user.id)}
+                            onClick={() => { following(user.id) }}>Follow</button>
+                    }
+                </div>
+            }
         </li>
     )
 }

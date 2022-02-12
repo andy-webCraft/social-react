@@ -68,7 +68,8 @@ let mapStateToProps = (state) => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        isFollowingProgress: getIsFollowingProgress(state)
+        isFollowingProgress: getIsFollowingProgress(state),
+        isAuthorized: state.auth.isLogin
     }
 }
 

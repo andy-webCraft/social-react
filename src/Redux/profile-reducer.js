@@ -145,7 +145,7 @@ export const changeProfileInfo = (profileInfo) => {
     } else {
       let errors = parseErrorsText(response.data.messages);
       dispatch(stopSubmit("profileInfoForm", errors));
-      return Promise.reject(errors);
+      // return Promise.reject(errors);
     }
   };
 };

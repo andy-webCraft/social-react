@@ -17,8 +17,8 @@ const App = ({ initialized, initializedApp }) => {
                 ? <Preloader />
                 : <div className="app-wrapper">
                     <HeaderContainer />
-                    <div className="app-content">
-                        <div className="container">
+                    <div className="container">
+                        <div className="app-content">
                             <div className="sidebar-wrapper">
                                 <SidebarContainer />
                             </div>
