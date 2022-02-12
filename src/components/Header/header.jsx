@@ -2,8 +2,24 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import style from "./header.module.css";
 import userAvatar from "../../assets/img/user.png"
+import logo from "../../assets/img/logo.jpg"
+import DropdownMenu from "../common/dropdownMenu/dropdownMenu";
 
 const Header = ({ isLogin, login, profileAvatar, logoutAuth }) => {
+
+    const dropdownItems = [
+        {
+            type: "link",
+            action: "/profile",
+            title: "go profile"
+        },
+        {
+            type: "btn",
+            action: logoutAuth,
+            title: "Logout"
+        },
+    ]
+
     return (
         <header>
             <div className="container">
@@ -11,31 +27,32 @@ const Header = ({ isLogin, login, profileAvatar, logoutAuth }) => {
                     <div className={style.logo}>
                         <NavLink to={'/'}>
                             <img
-                                src='https://heilpraktiker-erftstadt.de/wp-content/uploads/2013/03/logo-1446293_1920-300x236.png'
+                                src={logo}
                                 alt="logo"
                                 className='img'
                             />
                         </NavLink>
                     </div>
                     <div className={style.info}>
-                        <p className={style.phone}>+7 499 999 99 99</p>
-                        <p className={style.mail}>blabla@bla.ru</p>
+                        <p className={style.title}>Samurai Network</p>
+                        <p className={style.subtitle}>for the best of the best samurai</p>
                     </div>
                     <div className={style.auth}>
                         {isLogin
                             ? <div className={style.profile}>
                                 <NavLink className={style.profileInfo} to='/profile'>
-                                    <img src={profileAvatar ? profileAvatar : userAvatar} alt="avatar" className={style.avatar} />
-                                    <span>{login}</span>
+                                    <div className={style.avatar}>
+                                        <img src={profileAvatar ? profileAvatar : userAvatar} alt="avatar" className="img" />
+                                    </div>
                                 </NavLink>
-                                <button className={style.logoutBtn} onClick={logoutAuth}>Logout</button>
+                                <DropdownMenu title={login} linkTitle='/profile' items={dropdownItems} />
                             </div>
                             : <NavLink className="greenBtn" to='/login'>Login</NavLink>
                         }
                     </div>
                 </div>
             </div>
-        </header>
+        </header >
     );
 };
 
