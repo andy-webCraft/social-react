@@ -1,14 +1,19 @@
 .top {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  /* overflow: hidden; */
+  width: 180px;
+  height: 180px;
+  position: relative;
+  &:hover {
+    & .uploadPhoto {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
 
 .info {
@@ -16,9 +21,9 @@
 }
 
 .name {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .description > span {
@@ -35,7 +40,7 @@
 }
 
 .addPost textarea {
-  width: 50%;
+  width: 600px;
   font-size: 16px;
   padding: 10px;
   resize: vertical;
@@ -97,26 +102,26 @@
   cursor: pointer;
 }
 
-/* .status:hover ::before {
-  opacity: 1;
-}
-
-.status p::before {
-  content: "click for change";
-  width: 120px;
-  height: 16px;
-  text-align: center;
-  line-height: 1;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  border-radius: 10px;
-  padding: 3px;
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  opacity: 0;
-  transition: all .2s ease-in;
-} */
-
 .status input {
   font-size: 16px;
+}
+
+.uploadPhoto {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../assets/img/upload.svg);
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  transition: 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  & input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
+  }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import style from './profile-info.module.css'
+import style from './profile-info.module.scss'
 import { Field, reduxForm } from "redux-form";
 import { maxLengthCreator } from "../../../tools/validators";
 import { Input } from "../../common/formControl/formControl";
@@ -15,7 +15,10 @@ const renderFields = (obj, typeField, fieldNamePrefix = null) => {
                     if (typeof valueField === "boolean") {
                         valueField = valueField === true ? "yes" : "no"
                     }
-                    return <li key={key} className={style.item}><b>{key}:</b>{valueField}</li>
+                    return <li key={key} className={style.item}>
+                        <b>{key}:</b>
+                        <span>{valueField}</span>
+                    </li>
                 }
                 else return null
             })
@@ -43,12 +46,16 @@ export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
 
     return (
         <div className={style.wrapper}>
-            <span>Info</span>
-            {isUserProfile && <button onClick={toggleEditMode}>Edit</button>}
+            <div className={style.title}>
+                <span>Info</span>
+                {isUserProfile && <button onClick={toggleEditMode}>Edit</button>}
+            </div>
             <ul className={style.list}>
                 {renderFields(userData, "text")}
             </ul>
-            <span>Contacts</span>
+            <div className={style.title}>
+                <span>Contacts</span>
+            </div>
             <ul className={style.list}>
                 {renderFields(userData.contacts, "text", "contacts")}
             </ul>
@@ -60,13 +67,17 @@ const ProfileInfoEdit = ({ initialValues, handleSubmit, error }) => {
 
     return (
         <div className={style.wrapper}>
-            <span>Info</span>
             <form onSubmit={handleSubmit}>
-                <button>Save</button>
+                <div className={style.title}>
+                    <span>Info</span>
+                    <button>Save</button>
+                </div>
                 {/* {error && <p className="formSummaryError">{error}</p>} */}
                 <ul className={style.list}>
                     {renderFields(initialValues, "input")}
-                    <span>Contacts</span>
+                    <div className={style.title}>
+                        <span>Contacts</span>
+                    </div>
                     {renderFields(initialValues.contacts, "input", "contacts")}
                 </ul>
             </form>

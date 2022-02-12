@@ -1,5 +1,6 @@
 .formControl {
-    position: relative;
+  /* width: 100%; */
+  position: relative;
 }
 
 .formControl.error input,
@@ -12,4 +13,7 @@
   position: absolute;
   top: -22px;
   left: 0;
+  /* top: 2px;
+  right: -10px;
+  transform: translateX(100%); */
 }
