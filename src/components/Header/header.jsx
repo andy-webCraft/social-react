@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import style from "./header.module.css";
 import userAvatar from "../../assets/img/user.png"
 import logo from "../../assets/img/logo.jpg"
 import DropdownMenu from "../common/dropdownMenu/dropdownMenu";
 
-const Header = ({ isLogin, login, profileAvatar, logoutAuth }) => {
+const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppTheme }) => {
+
+    let [currentTheme, setCurrentTheme] = useState(theme)
+
+     setCurrentTheme = () => {
+        currentTheme = theme === "light" ? "dark" : "light"
+        toogleAppTheme(currentTheme)
+        localStorage.setItem("theme", currentTheme)
+    }
 
     const dropdownItems = [
         {
             type: "link",
             action: "/profile",
             title: "go profile"
+        },
+        {
+            type: "btn",
+            action: setCurrentTheme,
+            title: "change theme"
         },
         {
             type: "btn",
