@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import style from './profile.module.css'
+import React, { useEffect, useState } from "react";
+import style from './profile.module.scss'
 import userAvatar from "../../../assets/img/user.png"
 import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
 import ProfileStatus from "./profile-status";
 import { ProfileInfo, ProfileInfoForm } from "./profile-info";
+import { Tooltip } from 'react-tippy';
+import 'react-tippy/dist/tippy.css'
 
 const maxLength50 = maxLengthCreator(50)
 
@@ -21,7 +23,9 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
     let [editMode, setEditMode] = useState(false)
     const toggleEditMode = () => setEditMode(!editMode);
 
-
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const addPostHandle = (formData, dispatch) => {
         addPost(formData.newPostText)
@@ -49,7 +53,13 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
                 <div className={style.avatar}>
                     <img src={userData.photos.large ? userData.photos.large : userAvatar} alt="avatar" className="img" />
 
-                    {isUserProfile && <input type={"file"} name="profilePhoto" onChange={setProfilePhoto} />}
+                    {isUserProfile &&
+                        <Tooltip title="click for change photo" delay="400" animation="fade">
+                            <label className={style.uploadPhoto}>
+                                <input type="file" name="profilePhoto" onChange={setProfilePhoto} />
+                            </label>
+                        </Tooltip>
+                    }
 
                 </div>
                 <div className={style.info}>
@@ -100,7 +110,6 @@ const ProfilePosts = ({ posts, handleSubmit }) => {
                     rows="3"
                     validate={[required, maxLength50]}
                 />
-                <br />
                 <button className={style.add}>Add post</button>
             </form>
             <div className={style.post_wrapper}>

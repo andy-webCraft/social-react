@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import style from "./profile.module.css"
+import style from "./profile.module.scss"
+import { Tooltip } from 'react-tippy';
+import 'react-tippy/dist/tippy.css'
 
 const ProfileStatus = ({ status, updateStatus }) => {
 
@@ -28,9 +30,11 @@ const ProfileStatus = ({ status, updateStatus }) => {
                     onChange={changeStatusText}
                     value={statusText}
                     type="text" name="status" id="profileStatus" />
-                : <p onClick={toggleeEditMode}>
-                    {status ? status : "press click for change your status..."}
-                </p>
+                : <Tooltip title="click for change status" delay="400" animation="fade">
+                    <p onClick={toggleeEditMode}>
+                        {status ? status : "press click for change your status..."}
+                    </p>
+                </Tooltip>
             }
         </div>
     )
