@@ -9,29 +9,11 @@ const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppThe
 
     let [currentTheme, setCurrentTheme] = useState(theme)
 
-     setCurrentTheme = () => {
+    setCurrentTheme = () => {
         currentTheme = theme === "light" ? "dark" : "light"
         toogleAppTheme(currentTheme)
         localStorage.setItem("theme", currentTheme)
     }
-
-    const dropdownItems = [
-        {
-            type: "link",
-            action: "/profile",
-            title: "go profile"
-        },
-        {
-            type: "btn",
-            action: setCurrentTheme,
-            title: "change theme"
-        },
-        {
-            type: "btn",
-            action: logoutAuth,
-            title: "Logout"
-        },
-    ]
 
     return (
         <header>
@@ -58,7 +40,11 @@ const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppThe
                                         <img src={profileAvatar ? profileAvatar : userAvatar} alt="avatar" className="img" />
                                     </div>
                                 </NavLink>
-                                <DropdownMenu title={login} linkTitle='/profile' items={dropdownItems} />
+                                <DropdownMenu title={login} linkTitle='/profile'>
+                                    <NavLink to='/profile'>go profile</NavLink>
+                                    <button onClick={setCurrentTheme}>change theme</button>
+                                    <button onClick={logoutAuth}>Logout</button>
+                                </DropdownMenu>
                             </div>
                             : <NavLink className="greenBtn" to='/login'>Login</NavLink>
                         }

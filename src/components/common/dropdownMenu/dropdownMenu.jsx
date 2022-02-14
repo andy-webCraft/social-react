@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import DropdownItem from './dropdownItem';
 import style from './dropdownMenu.module.css'
 import cn from 'classnames'
 
-const DropdownMenu = ({ title, linkTitle, items, delay = 300 }) => {
+const DropdownMenu = ({ title, linkTitle, children, delay = 300 }) => {
 
     const [menuShow, setMenuShow] = useState(false)
     let timer;
@@ -15,11 +14,9 @@ const DropdownMenu = ({ title, linkTitle, items, delay = 300 }) => {
     }
     const menuClose = () => timer = setTimeout(() => setMenuShow(false), delay)
 
-    const list = items.map(item => {
-        return (
-            <DropdownItem key={items.indexOf(item)} item={item} className={style.item} />
-        )
-    })
+    const list = React.Children.map(children, child => (
+        React.cloneElement(child, { style: { ...child.props.style } })
+    ))
 
     return (
         <div className={cn(style.wrapper, { [style.show]: menuShow })} onMouseEnter={menuOpen} onMouseLeave={menuClose}>
