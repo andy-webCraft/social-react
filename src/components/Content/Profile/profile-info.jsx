@@ -46,14 +46,14 @@ export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
 
     return (
         <div className={style.wrapper}>
-            <div className={style.title}>
+            <div className="title_wrap">
                 <span>Info</span>
                 {isUserProfile && <button onClick={toggleEditMode}>Edit</button>}
             </div>
             <ul className={style.list}>
                 {renderFields(userData, "text")}
             </ul>
-            <div className={style.title}>
+            <div className="title_wrap">
                 <span>Contacts</span>
             </div>
             <ul className={style.list}>
@@ -68,14 +68,14 @@ const ProfileInfoEdit = ({ initialValues, handleSubmit, error }) => {
     return (
         <div className={style.wrapper}>
             <form onSubmit={handleSubmit}>
-                <div className={style.title}>
+                <div className="title_wrap">
                     <span>Info</span>
                     <button>Save</button>
                 </div>
                 {/* {error && <p className="formSummaryError">{error}</p>} */}
                 <ul className={style.list}>
                     {renderFields(initialValues, "input")}
-                    <div className={style.title}>
+                    <div className="title_wrap">
                         <span>Contacts</span>
                     </div>
                     {renderFields(initialValues.contacts, "input", "contacts")}

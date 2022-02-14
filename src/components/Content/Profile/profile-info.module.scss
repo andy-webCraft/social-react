@@ -1,31 +1,6 @@
 .wrapper {
   max-width: 450px;
 }
-.title {
-  max-width: 250px;
-  display: flex;
-  font-size: 20px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: rgba(58, 87, 218, 1);
-  padding: 5px 30px 5px 15px;
-  margin-bottom: 15px;
-  position: relative;
-  &::before {
-    content: "";
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 30px 20px;
-    border-color: transparent transparent #ffffff transparent;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-  }
-  & button {
-    margin-left: auto;
-  }
-}
 .list {
   /* display: flex;
   flex-direction: column; */

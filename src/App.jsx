@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './css/App.css';
+import './css/App.scss';
 import { HashRouter } from 'react-router-dom';
 import Content from './components/Content/content';
 import SidebarContainer from './components/Sidebar/sidebar-container';
@@ -12,7 +12,7 @@ import { darkTheme, lightTheme, GlobalStyles } from "./components/common/themes/
 
 const App = ({ initialized, initializedApp, theme, toogleAppTheme }) => {
     useEffect(() => initializedApp(), [initialized, initializedApp])
-    useEffect(() => { localStorage.getItem("theme") && toogleAppTheme(localStorage.getItem("theme")) }, [])
+    useEffect(() => { localStorage.getItem("theme") && toogleAppTheme(localStorage.getItem("theme")) }, [toogleAppTheme])
 
     return (
         <HashRouter>

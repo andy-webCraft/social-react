@@ -41,6 +41,8 @@
 
 .addPost textarea {
   width: 600px;
+  min-height: 50px;
+  max-height: 250px;
   font-size: 16px;
   padding: 10px;
   resize: vertical;
