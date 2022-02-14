@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import style from "./header.module.css";
+import style from "./header.module.scss";
 import userAvatar from "../../assets/img/user.png"
 import logo from "../../assets/img/logo.jpg"
 import DropdownMenu from "../common/dropdownMenu/dropdownMenu";
+import ToggleBtn from "../common/buttons/toggleBtn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons"
 
 const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppTheme }) => {
 
@@ -42,7 +45,11 @@ const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppThe
                                 </NavLink>
                                 <DropdownMenu title={login} linkTitle='/profile'>
                                     <NavLink to='/profile'>go profile</NavLink>
-                                    <button onClick={setCurrentTheme}>change theme</button>
+                                    <div className={style.themeToggle}>
+                                        <FontAwesomeIcon icon={faSun} />
+                                        <ToggleBtn name='themeToggle' action={setCurrentTheme} initial={currentTheme === 'dark' ? true : false} />
+                                        <FontAwesomeIcon icon={faMoon} />
+                                    </div>
                                     <button onClick={logoutAuth}>Logout</button>
                                 </DropdownMenu>
                             </div>
