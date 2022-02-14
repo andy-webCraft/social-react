@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './dropdownMenu.module.css'
 import cn from 'classnames'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const DropdownMenu = ({ title, linkTitle, children, delay = 300 }) => {
 
@@ -24,7 +26,7 @@ const DropdownMenu = ({ title, linkTitle, children, delay = 300 }) => {
                 ? <NavLink className={style.title} to={linkTitle}>{title}</NavLink>
                 : <span className={style.title}>{title}</span>
             }
-            <i className={style.dropIcon}></i>
+            <FontAwesomeIcon icon={faChevronDown} className={style.chevron} />
             <div className={cn(style.body, { [style.show]: menuShow })} >
                 <ul className={style.list}>
                     {list}

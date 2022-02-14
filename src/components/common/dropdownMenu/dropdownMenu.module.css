@@ -33,11 +33,6 @@
   visibility: visible;
   z-index: 20;
 }
-.dropIcon {
-  content: url(../../../assets/img/chevron-down-solid.svg);
-  width: 14px;
-  margin-left: 6px;
-}
 .list {
   display: flex;
   align-items: center;
@@ -47,4 +42,7 @@
 }
 .list > * {
   margin-bottom: 10px;
+}
+.chevron {
+  margin-left: 5px;
 }
