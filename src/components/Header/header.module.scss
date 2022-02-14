@@ -69,3 +69,11 @@ header {
   margin-left: auto;
   cursor: pointer;
 }
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  & > div {
+    margin: 0 5px;
+  }
+}
