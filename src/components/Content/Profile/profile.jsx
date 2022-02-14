@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import style from './profile.module.scss'
 import userAvatar from "../../../assets/img/user.png"
-import { Field, reduxForm, reset } from "redux-form";
-import { maxLengthCreator, required } from "../../../tools/validators";
-import { TextArea } from "../../common/formControl/formControl";
+import { reset } from "redux-form";
 import ProfileStatus from "./profile-status";
 import { ProfileInfo, ProfileInfoForm } from "./profile-info";
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
-
-const maxLength50 = maxLengthCreator(50)
+import ProfilePostsReduxForm from "./profile-posts";
 
 const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo }) => {
+
     let isUserProfile = userData.userId === profileId
     let initialValuesForm;
     if (isUserProfile) {
@@ -65,7 +63,7 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
                 <div className={style.info}>
                     <p className={style.name}>{userData.fullName}</p>
 
-                    {profileId === userData.userId
+                    {isUserProfile
                         ? <ProfileStatus status={status} updateStatus={updateStatus} />
                         : <p>{status}</p>
                     }
@@ -80,45 +78,9 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
                 }
 
             </div>
-            <ProfileReduxForm posts={posts} onSubmit={addPostHandle} />
+            <ProfilePostsReduxForm posts={posts} onSubmit={addPostHandle} isUserProfile={isUserProfile} />
         </div>
     )
 }
-
-const ProfilePosts = ({ posts, handleSubmit }) => {
-    let userPosts = posts.map(((item) => {
-        return (
-            <div key={item.id} className={style.post}>
-                <p className={style.post_text}>{item.text}</p>
-                <div className={style.likes}>
-                    like
-                    <span className={style.like}>{item.likeCount}</span>
-                </div>
-            </div>
-        )
-    }))
-
-    return (
-        <div className={style.posts}>
-            <form onSubmit={handleSubmit} className={style.addPost}>
-                <Field
-                    component={TextArea}
-                    name="newPostText"
-                    id="newPostText"
-                    placeholder="Write what your think..."
-                    cols="100"
-                    rows="3"
-                    validate={[required, maxLength50]}
-                />
-                <button className={style.add}>Add post</button>
-            </form>
-            <div className={style.post_wrapper}>
-                {userPosts}
-            </div>
-        </div>
-    )
-}
-
-const ProfileReduxForm = reduxForm({ form: "profilePost" })(ProfilePosts)
 
 export default Profile
