@@ -1,46 +1,9 @@
 import React from "react";
 import style from './profile-info.module.scss'
-import { Field, reduxForm } from "redux-form";
-import { maxLengthCreator } from "../../../tools/validators";
-import { Input } from "../../common/formControl/formControl";
-
-const maxLength20 = maxLengthCreator(20)
-
-const renderFields = (obj, typeField, fieldNamePrefix = null) => {
-    switch (typeField) {
-        case "text": {
-            return Object.entries(obj).map(([key, value]) => {
-                if (typeof value !== 'object' && value !== "") {
-                    let valueField = value
-                    if (typeof valueField === "boolean") {
-                        valueField = valueField === true ? "yes" : "no"
-                    }
-                    return <li key={key} className={style.item}>
-                        <b>{key}:</b>
-                        <span>{valueField}</span>
-                    </li>
-                }
-                else return null
-            })
-        }
-        case "input": {
-            return Object.entries(obj).map(([key, value]) => {
-                if (typeof value !== 'object' | value === null) {
-                    return <li key={key} className={style.item}><b>{key}:</b>
-                        <Field
-                            component={Input}
-                            type={typeof value === "boolean" ? "checkbox" : "text"}
-                            name={fieldNamePrefix ? fieldNamePrefix + '.' + key : key}
-                            value={value}
-                            validate={maxLength20}
-                        />
-                    </li>
-                } else return null
-            })
-        }
-        default: return null
-    }
-}
+import { reduxForm } from "redux-form";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import renderFields from "../../common/formFields/renderFields";
 
 export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
 
@@ -48,7 +11,12 @@ export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
         <div className={style.wrapper}>
             <div className="title_wrap">
                 <span>Info</span>
-                {isUserProfile && <button onClick={toggleEditMode}>Edit</button>}
+                {isUserProfile &&
+                    <button className={style.editBtn} onClick={toggleEditMode}>
+                        <span>edit</span>
+                        <FontAwesomeIcon icon={faPenToSquare} size={"lg"} />
+                    </button>
+                }
             </div>
             <ul className={style.list}>
                 {renderFields(userData, "text")}
@@ -70,7 +38,10 @@ const ProfileInfoEdit = ({ initialValues, handleSubmit, error }) => {
             <form onSubmit={handleSubmit}>
                 <div className="title_wrap">
                     <span>Info</span>
-                    <button>Save</button>
+                    <button className={style.editBtn}>
+                        <span>save</span>
+                        <FontAwesomeIcon icon={faFloppyDisk} size={"lg"} />
+                    </button>
                 </div>
                 {/* {error && <p className="formSummaryError">{error}</p>} */}
                 <ul className={style.list}>
