@@ -8,7 +8,7 @@ import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
 import ProfilePostsReduxForm from "./profile-posts";
 
-const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo }) => {
+const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo, userLikesPostsId, likeToggle }) => {
 
     let isUserProfile = userData.userId === profileId
     let initialValuesForm;
@@ -78,7 +78,8 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
                 }
 
             </div>
-            <ProfilePostsReduxForm posts={posts} onSubmit={addPostHandle} isUserProfile={isUserProfile} />
+            <ProfilePostsReduxForm posts={posts} onSubmit={addPostHandle}
+                isUserProfile={isUserProfile} userLikesPostsId={userLikesPostsId} likeToggle={likeToggle} />
         </div>
     )
 }

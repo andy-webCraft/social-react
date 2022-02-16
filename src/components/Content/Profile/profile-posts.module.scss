@@ -52,17 +52,7 @@
 }
 
 .like {
-  // width: 24px;
-  // height: 24px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // font-size: 14px;
-  // line-height: 1;
-  // font-weight: 500;
-  // background-color: #fff;
-  // border-radius: 50%;
-  // margin-left: 10px;
+  transition: 0.2s ease-in-out;
 }
 .likeIcon {
   margin-right: 5px;
@@ -71,11 +61,8 @@
 .likeBtn {
   display: flex;
   align-items: center;
-  color: rgba(58, 87, 218, 1);
   color: #ffffff;
   background: transparent;
-  // border: 1px solid rgba(58, 87, 218, 1);
-  // border-radius: 5px;
   border: none;
   padding: 3px;
   cursor: pointer;
@@ -83,5 +70,8 @@
     & .likeIcon {
       transform: scale(1.2);
     }
+  }
+  &.active {
+    color: rgba(58, 87, 218, 1);
   }
 }

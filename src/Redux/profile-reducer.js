@@ -8,6 +8,7 @@ const SET_USER = "SET-USER";
 const SET_STATUS = "SET-STATUS";
 const ADD_POST = "ADD-POST";
 const SET_PHOTO = "SET-PHOTO";
+const LIKE_TOGGLE = "LIKE-TOGGLE";
 
 let initialState = {
   profileId: "",
@@ -50,6 +51,7 @@ let initialState = {
       likeCount: 8,
     },
   ],
+  userLikesPostsId: [],
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -74,6 +76,25 @@ const profileReducer = (state = initialState, action) => {
           ],
         };
       } else return state;
+    case LIKE_TOGGLE:
+      return {
+        ...state,
+        posts: state.posts.map((item) => {
+          if (item.id === action.postId) {
+            if (state.userLikesPostsId.includes(action.postId)) {
+              item.likeCount -= 1;
+              state.userLikesPostsId.splice(
+                state.userLikesPostsId.indexOf(action.postId),
+                1
+              );
+            } else {
+              item.likeCount += 1;
+              state.userLikesPostsId.push(action.postId);
+            }
+          }
+          return item;
+        }),
+      };
     case SET_PHOTO:
       return {
         ...state,
@@ -97,10 +118,15 @@ export const setStatus = (status) => {
 };
 
 export const addPost = (newPostText) => {
-  return { type: ADD_POST, newPostText: newPostText };
+  return { type: ADD_POST, newPostText };
 };
+
 export const uploadProfilePhotoSuccsess = (photos) => {
-  return { type: SET_PHOTO, photos: photos };
+  return { type: SET_PHOTO, photos };
+};
+
+export const likeToggle = (postId) => {
+  return { type: LIKE_TOGGLE, postId };
 };
 
 export const getUserId = (userId) => {

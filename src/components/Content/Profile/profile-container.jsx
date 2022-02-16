@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo } from "../../../Redux/profile-reducer";
+import { getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo, likeToggle } from "../../../Redux/profile-reducer";
 import { connect } from "react-redux";
 import Profile from './profile'
 import Preloader from "../../common/preloader/preloader";
@@ -57,12 +57,13 @@ let mapStateToProps = (state) => {
         userData: state.profilePage.userData,
         status: state.profilePage.status,
         posts: state.profilePage.posts,
+        userLikesPostsId: state.profilePage.userLikesPostsId,
         isFetching: state.peoplePage.isFetching,
     }
 }
 
 let mapDispatchToProps = {
-    getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo
+    getUserId, getStatus, updateStatus, addPost, uploadProfilePhoto, changeProfileInfo, likeToggle
 }
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), withAuthRedirect)(ProfileContainer)
