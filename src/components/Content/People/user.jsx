@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import style from './people.module.css'
+import style from './people.module.scss'
 import userAvatar from "../../../assets/img/user.png"
 
 const User = ({ user, isFollowingProgress, following, unFollowing, isAuthorized }) => {
