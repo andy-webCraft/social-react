@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import style from "./pagginator.module.css"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
 
 const Pagginator = ({ totalUsersCount, pageSize, currentPage, setCurrentPage, portionPagesSize = 10 }) => {
     let [currentPortion, setCurrentPortion] = useState(1)
@@ -21,8 +23,9 @@ const Pagginator = ({ totalUsersCount, pageSize, currentPage, setCurrentPage, po
             {currentPortion > 1 &&
                 <button
                     className={style.paggBtn}
-                    onClick={() => setCurrentPortion(currentPortion - 1)}
-                >Prev</button>
+                    onClick={() => setCurrentPortion(currentPortion - 1)}>
+                    <FontAwesomeIcon icon={faArrowLeftLong} size={"lg"} />
+                </button>
             }
 
             <div className={style.list}>
@@ -41,8 +44,9 @@ const Pagginator = ({ totalUsersCount, pageSize, currentPage, setCurrentPage, po
             {pageCount > currentPortion &&
                 <button
                     className={style.paggBtn}
-                    onClick={() => setCurrentPortion(currentPortion + 1)}
-                >Next</button>
+                    onClick={() => setCurrentPortion(currentPortion + 1)}>
+                    <FontAwesomeIcon icon={faArrowRightLong} size={"lg"} />
+                </button>
             }
         </div>
     )

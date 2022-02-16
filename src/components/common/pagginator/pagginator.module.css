@@ -4,10 +4,11 @@
 
 .list {
   font-size: 18px;
-  margin: 0 4px;
+  margin: 0 10px;
 }
 
 .list span {
+  vertical-align: middle;
   margin: 0 4px;
   cursor: pointer;
 }
