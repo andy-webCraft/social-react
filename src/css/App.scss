@@ -1,0 +1,97 @@
+.app-wrapper {
+}
+
+.app-content {
+  min-height: 250px;
+  display: flex;
+  border-width: 0px 2px 2px 2px;
+  border-style: solid;
+  border-color: rgba(145, 131, 131, 0.5);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: 60px 0;
+}
+
+.app-content .container {
+}
+
+.sidebar-wrapper {
+  min-width: 100px;
+  flex: 1 1 20%;
+  padding: 40px;
+  border-right: 2px solid rgba(145, 131, 131, 0.5);
+}
+
+.sidebar {
+  position: fixed;
+}
+
+.sidebar a.active {
+  color: rgb(58, 87, 218);
+}
+
+.content-wrapper {
+  flex: 1 1 80%;
+  padding: 40px;
+  position: relative;
+}
+
+.people {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.greenBtn {
+  width: 80px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(58 218 74 / 80%);
+  box-shadow: 1px 3px 7px 0 #00000080;
+  border-radius: 10px;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.greenBtn:active {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 0px 0 #00000080;
+}
+
+.formSummaryError {
+  color: red;
+  padding: 0 5px 5px;
+}
+////////////////////////
+.title_wrap {
+  max-width: 250px;
+  display: flex;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: rgba(58, 87, 218, 1);
+  padding: 5px 30px 5px 15px;
+  margin-bottom: 15px;
+  position: relative;
+  &::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 30px 20px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+  & button {
+    margin-left: auto;
+  }
+}
+.message_text {
+  border: 1px solid #000;
+  border-radius: 20px;
+  padding: 10px 20px;
+}

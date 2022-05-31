@@ -7,25 +7,25 @@ import style from "./login.module.css"
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
-const Login = (props) => {
-    const login = (formData) => {
-        let { email, password, remember } = formData
-        props.loginAuth(email, password, remember)
+const Login = ({ isLogin, captchaUrl, loginAuth }) => {
+    const loginCheck = (formData) => {
+        let { email, password, remember, captcha } = formData
+        loginAuth(email, password, remember, captcha)
     }
 
-    if (props.isLogin) return <Navigate to="/profile" />
+    if (isLogin) return <Navigate to="/profile" />
 
     return (
         <div className="login">
             <span>Login</span>
-            <LoginReduxForm onSubmit={login} />
+            <LoginReduxForm captchaUrl={captchaUrl} onSubmit={loginCheck} />
         </div>
     )
 }
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, captchaUrl, error }) => {
     return (
-        <form onSubmit={props.handleSubmit} className={style.form}>
+        <form onSubmit={handleSubmit} className={style.form}>
             <Field
                 component={Input}
                 className={style.input}
@@ -51,7 +51,19 @@ const LoginForm = (props) => {
                 />
                 remember me
             </label>
-            {props.error && <p className="formSummaryError">{props.error}</p>}
+            {error && <p className="formSummaryError">{error}</p>}
+            {captchaUrl && <div>
+                <span>Please, enter anti-bot code</span>
+                <img src={captchaUrl} alt="captcha" />
+                <Field
+                    component={Input}
+                    className={style.input}
+                    type="text"
+                    name="captcha"
+                    id='captcha'
+                    validate={[required]}
+                />
+            </div>}
             <button className={style.submit}>Login</button>
         </form>
     )
@@ -61,7 +73,8 @@ const LoginReduxForm = reduxForm({ form: "login" })(LoginForm)
 
 const mapStateToProps = (state) => {
     return {
-        isLogin: state.Auth.isLogin
+        isLogin: state.auth.isLogin,
+        captchaUrl: state.auth.captchaUrl,
     }
 }
 

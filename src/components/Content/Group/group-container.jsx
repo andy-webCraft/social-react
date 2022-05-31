@@ -3,7 +3,7 @@ import Group from './group'
 
 let mapStateToProps = (state) => {
     return {
-        group: state.GroupPage,
+        group: state.groupPage,
     }
 }
 

@@ -1,0 +1,66 @@
+.top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.avatar {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  &:hover {
+    & .uploadPhoto {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.info {
+  margin-left: 40px;
+}
+
+.name {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description > span {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.item {
+  margin-bottom: 10px;
+}
+
+.status p {
+  padding: 0 0 3px 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.status input {
+  font-size: 16px;
+}
+
+.uploadPhoto {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../../assets/img/upload.svg);
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  transition: 0.3s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  & input {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    opacity: 0;
+    visibility: hidden;
+  }
+}

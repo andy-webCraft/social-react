@@ -1,41 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import style from "./header.module.css";
+import style from "./header.module.scss";
 import userAvatar from "../../assets/img/user.png"
+import logo from "../../assets/img/logo.jpg"
+import DropdownMenu from "../common/dropdownMenu/dropdownMenu";
+import ToggleBtn from "../common/buttons/toggleBtn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons"
 
-const Header = (props) => {
+const Header = ({ isLogin, login, profileAvatar, logoutAuth, theme, toogleAppTheme }) => {
+
+    let [currentTheme, setCurrentTheme] = useState(theme)
+
+    setCurrentTheme = () => {
+        currentTheme = theme === "light" ? "dark" : "light"
+        toogleAppTheme(currentTheme)
+        localStorage.setItem("theme", currentTheme)
+    }
+
     return (
         <header>
             <div className="container">
                 <div className={style.wrapper}>
                     <div className={style.logo}>
-                        <NavLink to={'/profile'}>
+                        <NavLink to={'/'}>
                             <img
-                                src='https://heilpraktiker-erftstadt.de/wp-content/uploads/2013/03/logo-1446293_1920-300x236.png'
+                                src={logo}
                                 alt="logo"
                                 className='img'
                             />
                         </NavLink>
                     </div>
                     <div className={style.info}>
-                        <p className={style.phone}>+7 499 999 99 99</p>
-                        <p className={style.mail}>blabla@bla.ru</p>
+                        <p className={style.title}>Samurai Network</p>
+                        <p className={style.subtitle}>for the best of the best samurai</p>
                     </div>
                     <div className={style.auth}>
-                        {props.isLogin
+                        {isLogin
                             ? <div className={style.profile}>
                                 <NavLink className={style.profileInfo} to='/profile'>
-                                    <img src={props.avatar ? props.avatar : userAvatar} alt="avatar" className={style.avatar} />
-                                    <span>{props.login}</span>
+                                    <div className={style.avatar}>
+                                        <img src={profileAvatar ? profileAvatar : userAvatar} alt="avatar" className="img" />
+                                    </div>
                                 </NavLink>
-                                <button className={style.logoutBtn} onClick={props.logoutAuth}>Logout</button>
+                                <DropdownMenu title={login} linkTitle='/profile'>
+                                    <NavLink to='/profile'>go profile</NavLink>
+                                    <div className={style.themeToggle}>
+                                        <FontAwesomeIcon icon={faSun} />
+                                        <ToggleBtn name='themeToggle' action={setCurrentTheme} initial={currentTheme === 'dark' ? true : false} />
+                                        <FontAwesomeIcon icon={faMoon} />
+                                    </div>
+                                    <button onClick={logoutAuth}>Logout</button>
+                                </DropdownMenu>
                             </div>
                             : <NavLink className="greenBtn" to='/login'>Login</NavLink>
                         }
                     </div>
                 </div>
             </div>
-        </header>
+        </header >
     );
 };
 

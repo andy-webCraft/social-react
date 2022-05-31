@@ -1,64 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getUsers, setPage, following, unFollowing, } from "../../../Redux/people-reducer";
+import { getUsers, setPage, following, unFollowing, getMoreUsers, } from "../../../Redux/people-reducer";
 import People from "./people";
 import Preloader from "../../common/preloader/preloader";
 import { getCurrentPage, getIsFetching, getIsFollowingProgress, getPageSize, getPeople, getTotalUsersCount } from "../../../Redux/selectors/people-selectors";
 
-class PeopleContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+
+const PeopleContainer = (props) => {
+
+    let { getUsers, currentPage, pageSize } = props
+
+    useEffect(() => {
+        getUsers(currentPage, pageSize)
+    }, []) 
+    
+    const setCurrentPage = (currentPage) => {
+        props.setPage(currentPage)
+        props.getUsers(currentPage, pageSize)
     }
 
-    setCurrentPage = (currentPage) => {
-        this.props.setPage(currentPage)
-        this.props.getUsers(currentPage, this.props.pageSize)
+    const setMoreUsers = () => {
+        props.setPage(currentPage + 1)
+        props.getMoreUsers(currentPage + 1, pageSize)
     }
 
-    toggleFollow = (id) => {
-        this.props.toggleFollow(id)
-    }
-
-    render() {
-        return (
-            <>
-                {this.props.isFetching
-                    ? <Preloader />
-                    : <People
-                        totalUsersCount={this.props.totalUsersCount}
-                        pageSize={this.props.pageSize}
-                        currentPage={this.props.currentPage}
-                        people={this.props.people}
-                        setCurrentPage={this.setCurrentPage}
-                        isFollowingProgress={this.props.isFollowingProgress}
-                        following={this.props.following}
-                        unFollowing={this.props.unFollowing}
-                    />}
-            </>
-        )
-    }
+    return (
+        <>
+            {props.isFetching
+                ? <Preloader />
+                : <People {...props} setCurrentPage={setCurrentPage} setMoreUsers={setMoreUsers} />}
+        </>
+    )
 }
-
-// let mapStateToProps = (state) => {
-//     return {
-//         people: state.PeoplePage.people,
-//         pageSize: state.PeoplePage.pageSize,
-//         totalUsersCount: state.PeoplePage.totalUsersCount,
-//         currentPage: state.PeoplePage.currentPage,
-//         isFetching: state.PeoplePage.isFetching,
-//         isFollowingProgress: state.PeoplePage.isFollowingProgress
-//     }
-// }
 
 let mapStateToProps = (state) => {
     return {
-        people: getPeople(state),
+        currentPeople: getPeople(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        isFollowingProgress: getIsFollowingProgress(state)
+        isFollowingProgress: getIsFollowingProgress(state),
+        isAuthorized: state.auth.isLogin
     }
 }
 
-export default connect(mapStateToProps, { getUsers, setPage, following, unFollowing, })(PeopleContainer)
+export default connect(mapStateToProps, { getUsers, setPage, following, unFollowing, getMoreUsers })(PeopleContainer)

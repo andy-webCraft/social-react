@@ -1,43 +1,47 @@
-import React from 'react';
-import './css/App.css';
-import { BrowserRouter } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import './css/App.scss';
+import { HashRouter } from 'react-router-dom';
 import Content from './components/Content/content';
 import SidebarContainer from './components/Sidebar/sidebar-container';
 import HeaderContainer from './components/Header/header-container';
 import { connect } from 'react-redux';
-import { initializedApp } from './Redux/app-reducer';
+import { initializedApp, toogleAppTheme } from './Redux/app-reducer';
 import Preloader from './components/common/preloader/preloader';
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme, GlobalStyles } from "./components/common/themes/themes";
 
-class App extends React.Component {
-    componentDidMount() {
-        this.props.initializedApp()
-    }
+const App = ({ initialized, initializedApp, theme, toogleAppTheme }) => {
+    useEffect(() => initializedApp(), [initialized, initializedApp])
+    useEffect(() => { localStorage.getItem("theme") && toogleAppTheme(localStorage.getItem("theme")) }, [toogleAppTheme])
 
-    render() {
-        if (!this.props.initialized) return <Preloader />
-
-        return (
-            <BrowserRouter>
-                <div className="app-wrapper">
-                    <HeaderContainer />
-                    <div className="app-content">
+    return (
+        <HashRouter>
+            <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+                <GlobalStyles />
+                {!initialized
+                    ? <Preloader />
+                    : <div className="app-wrapper">
+                        <HeaderContainer />
                         <div className="container">
-                            <div className="sidebar-wrapper">
-                                <SidebarContainer />
-                            </div>
-                            <div className="content-wrapper">
-                                <Content />
+                            <div className="app-content">
+                                <div className="sidebar-wrapper">
+                                    <SidebarContainer />
+                                </div>
+                                <div className="content-wrapper">
+                                    <Content />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </BrowserRouter>
-        )
-    }
+                }
+            </ThemeProvider>
+        </HashRouter>
+    )
 }
 
 const mapStateToProps = (state) => ({
     initialized: state.app.initialized,
+    theme: state.app.theme,
 })
 
-export default connect(mapStateToProps, { initializedApp })(App)
+export default connect(mapStateToProps, { initializedApp, toogleAppTheme })(App)

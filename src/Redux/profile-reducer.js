@@ -1,10 +1,14 @@
+import { stopSubmit } from "redux-form";
 import { ProfileAPI } from "../api/api";
+import { parseErrorsText } from "../tools/parse";
 import { toggleFetching } from "./people-reducer";
 
 const SET_PROFILE_ID = "SET-PROFILE-ID";
 const SET_USER = "SET-USER";
 const SET_STATUS = "SET-STATUS";
 const ADD_POST = "ADD-POST";
+const SET_PHOTO = "SET-PHOTO";
+const LIKE_TOGGLE = "LIKE-TOGGLE";
 
 let initialState = {
   profileId: "",
@@ -13,7 +17,7 @@ let initialState = {
     userId: "",
     fullName: "",
     aboutMe: "",
-    photos: "",
+    photos: {},
     contacts: {
       facebook: null,
       website: null,
@@ -47,6 +51,7 @@ let initialState = {
       likeCount: 8,
     },
   ],
+  userLikesPostsId: [],
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -71,6 +76,30 @@ const profileReducer = (state = initialState, action) => {
           ],
         };
       } else return state;
+    case LIKE_TOGGLE:
+      return {
+        ...state,
+        posts: state.posts.map((item) => {
+          if (item.id === action.postId) {
+            if (state.userLikesPostsId.includes(action.postId)) {
+              item.likeCount -= 1;
+              state.userLikesPostsId.splice(
+                state.userLikesPostsId.indexOf(action.postId),
+                1
+              );
+            } else {
+              item.likeCount += 1;
+              state.userLikesPostsId.push(action.postId);
+            }
+          }
+          return item;
+        }),
+      };
+    case SET_PHOTO:
+      return {
+        ...state,
+        userData: { ...state.userData, photos: action.photos },
+      };
     default:
       return state;
   }
@@ -89,34 +118,61 @@ export const setStatus = (status) => {
 };
 
 export const addPost = (newPostText) => {
-  return { type: ADD_POST, newPostText: newPostText };
+  return { type: ADD_POST, newPostText };
+};
+
+export const uploadProfilePhotoSuccsess = (photos) => {
+  return { type: SET_PHOTO, photos };
+};
+
+export const likeToggle = (postId) => {
+  return { type: LIKE_TOGGLE, postId };
 };
 
 export const getUserId = (userId) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleFetching(true));
-    ProfileAPI.getProfile(userId).then((response) => {
-      dispatch(setUser(response.data));
-      dispatch(toggleFetching(false));
-    });
+    let response = await ProfileAPI.getProfile(userId);
+    dispatch(setUser(response.data));
+    dispatch(toggleFetching(false));
   };
 };
 
 export const getStatus = (userId) => {
-  return (dispatch) => {
-    ProfileAPI.getStatus(userId).then((response) => {
-      dispatch(setStatus(response.data));
-    });
+  return async (dispatch) => {
+    let response = await ProfileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
   };
 };
 
 export const updateStatus = (status) => {
-  return (dispatch) => {
-    ProfileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
-    });
+  return async (dispatch) => {
+    let response = await ProfileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
+  };
+};
+
+export const uploadProfilePhoto = (photo) => {
+  return async (dispatch) => {
+    let response = await ProfileAPI.uploadPhoto(photo);
+    if (response.data.resultCode === 0) {
+      dispatch(uploadProfilePhotoSuccsess(response.data.data.photos));
+    }
+  };
+};
+
+export const changeProfileInfo = (profileInfo) => {
+  return async (dispatch) => {
+    let response = await ProfileAPI.setProfileInfo(profileInfo);
+    if (response.data.resultCode === 0) {
+      dispatch(getUserId(profileInfo.userId));
+    } else {
+      let errors = parseErrorsText(response.data.messages);
+      dispatch(stopSubmit("profileInfoForm", errors));
+      // return Promise.reject(errors);
+    }
   };
 };
 

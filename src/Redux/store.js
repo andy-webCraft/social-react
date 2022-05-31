@@ -4,7 +4,7 @@ import profileReducer from "./profile-reducer";
 let store = {
   _state: {
     Header: {},
-    SideBar: {
+    sidebar: {
       navData: [
         { id: 1, to: "profile", name: "Профиль" },
         { id: 2, to: "friends", name: "Друзья" },
@@ -12,7 +12,7 @@ let store = {
         { id: 4, to: "group", name: "Группы" },
       ],
     },
-    ProfilePage: {
+    profilePage: {
       userData: {
         name: "Damilola",
         age: "30",
@@ -48,7 +48,7 @@ let store = {
       ],
       NewPostText: "",
     },
-    FriendsPage: {
+    friendsPage: {
       friends: [
         {
           id: 1,
@@ -106,7 +106,7 @@ let store = {
         },
       ],
     },
-    MessagePage: {
+    messagePage: {
       messages: [
         {
           id: 1,
@@ -136,7 +136,7 @@ let store = {
       ],
       newMessageText: "",
     },
-    GroupPage: {},
+    groupPage: {},
   },
   getState() {
     return this._state;
@@ -146,8 +146,8 @@ let store = {
     this._callSubscriber = observer;
   },
   dicpatch(action) {
-      this._state.ProfilePage = profileReducer(this._state.ProfilePage, action)
-      this._state.MessagePage = messageReducer(this._state.MessagePage, action)
+      this._state.profilePage = profileReducer(this._state.profilePage, action)
+      this._state.messagePage = messageReducer(this._state.messagePage, action)
 
       this._callSubscriber(this._state)
   },

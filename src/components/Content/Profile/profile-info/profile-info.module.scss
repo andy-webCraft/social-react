@@ -1,0 +1,29 @@
+.wrapper {
+  max-width: 450px;
+}
+.editBtn {
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  & span {
+    text-decoration: underline;
+    margin-right: 5px;
+    transition: 0.2s ease-in-out;
+    opacity: 0;
+  }
+  &:hover {
+    & span {
+      opacity: 1;
+    }
+  }
+}
+.list {
+  & input {
+    font-size: 16px;
+    font-family: inherit;
+    &:not([type="checkbox"]) {
+      width: 100%;
+    }
+  }
+}

@@ -30,6 +30,14 @@ export const ProfileAPI = {
   updateStatus(status) {
     return instance.put(`profile/status`, { status: status });
   },
+  uploadPhoto(photo) {
+    let uploadData = new FormData();
+    uploadData.append("image", photo);
+    return instance.put(`profile/photo`, uploadData);
+  },
+  setProfileInfo(profileInfo) {
+    return instance.put(`/profile`, profileInfo);
+  },
 };
 
 export const UsersAPI = {
@@ -41,5 +49,11 @@ export const UsersAPI = {
   },
   setUnfollow(id) {
     return instance.delete(`follow/${id}`);
+  },
+};
+
+export const SecurityAPI = {
+  getCaptchaUrl() {
+    return instance.get(`security/get-captcha-url`);
   },
 };
