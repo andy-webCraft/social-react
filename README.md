@@ -1,4 +1,4 @@
-## Social-Network App ⛅
+## Social-Network App 🖧
 
 😲 demo: https://andy-webcraft.github.io/social-react
 
