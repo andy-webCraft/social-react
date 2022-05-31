@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/social-react/static/css/main.b3afb05a.chunk.css",
+    "main.css": "/social-react/static/css/main.811f60f6.chunk.css",
     "main.js": "/social-react/static/js/main.b6693429.chunk.js",
     "main.js.map": "/social-react/static/js/main.b6693429.chunk.js.map",
     "runtime-main.js": "/social-react/static/js/runtime-main.19532d36.js",
@@ -14,7 +14,7 @@
     "index.html": "/social-react/index.html",
     "static/css/2.74170c84.chunk.css.map": "/social-react/static/css/2.74170c84.chunk.css.map",
     "static/css/3.190126b7.chunk.css.map": "/social-react/static/css/3.190126b7.chunk.css.map",
-    "static/css/main.b3afb05a.chunk.css.map": "/social-react/static/css/main.b3afb05a.chunk.css.map",
+    "static/css/main.811f60f6.chunk.css.map": "/social-react/static/css/main.811f60f6.chunk.css.map",
     "static/js/2.eb9d5380.chunk.js.LICENSE.txt": "/social-react/static/js/2.eb9d5380.chunk.js.LICENSE.txt",
     "static/media/logo.b8655a29.jpg": "/social-react/static/media/logo.b8655a29.jpg",
     "static/media/preloader.c0972a6f.svg": "/social-react/static/media/preloader.c0972a6f.svg",
@@ -25,7 +25,7 @@
     "static/js/runtime-main.19532d36.js",
     "static/css/2.74170c84.chunk.css",
     "static/js/2.eb9d5380.chunk.js",
-    "static/css/main.b3afb05a.chunk.css",
+    "static/css/main.811f60f6.chunk.css",
     "static/js/main.b6693429.chunk.js"
   ]
 }
