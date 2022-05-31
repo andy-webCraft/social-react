@@ -3,7 +3,7 @@ import style from './profile-info.module.scss'
 import { reduxForm } from "redux-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import renderFields from "../../common/formFields/renderFields";
+import renderFields from "../../../common/formFields/renderFields";
 
 export const ProfileInfo = ({ userData, isUserProfile, toggleEditMode }) => {
 

@@ -1,5 +1,4 @@
 .formControl {
-  /* width: 100%; */
   position: relative;
 }
 
@@ -13,7 +12,4 @@
   position: absolute;
   top: -22px;
   left: 0;
-  /* top: 2px;
-  right: -10px;
-  transform: translateX(100%); */
 }

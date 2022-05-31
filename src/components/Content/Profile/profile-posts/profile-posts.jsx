@@ -1,7 +1,7 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { maxLengthCreator, required } from '../../../tools/validators';
-import { TextArea } from '../../common/formControl/formControl';
+import { maxLengthCreator, required } from '../../../../tools/validators';
+import { TextArea } from '../../../common/formControl/formControl';
 import style from './profile-posts.module.scss'
 import cn from 'classnames'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

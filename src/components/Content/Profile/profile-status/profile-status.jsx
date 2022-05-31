@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import style from "./profile.module.scss"
+import style from "../profile.module.scss"
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
 

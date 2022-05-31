@@ -1,9 +1,9 @@
 import React from "react";
 import style from './people.module.scss'
-import User from "./user";
+import User from "./user/user";
 import Pagginator from "../../common/pagginator/pagginator";
 
-let People = ({ currentPeople, totalUsersCount, pageSize, currentPage, setCurrentPage, isFollowingProgress, following, unFollowing, isAuthorized }) => {
+let People = ({ currentPeople, totalUsersCount, pageSize, currentPage, setCurrentPage, isFollowingProgress, following, unFollowing, isAuthorized, setMoreUsers }) => {
 
     return (
         <div className="people">
@@ -21,7 +21,7 @@ let People = ({ currentPeople, totalUsersCount, pageSize, currentPage, setCurren
                         following={following} unFollowing={unFollowing} isAuthorized={isAuthorized} />
                 )}
             </ul>
-            <button className={style.showMore}>Show More</button>
+            <button className={style.showMore} onClick={setMoreUsers}>Show More</button>
         </div>
     )
 }

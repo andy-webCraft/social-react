@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm, reset } from "redux-form";
 import { maxLengthCreator, required } from "../../../tools/validators";
 import { TextArea } from "../../common/formControl/formControl";
-import style from './message.module.css'
+import style from './message.module.scss'
 
 const maxLength100 = maxLengthCreator(100)
 
@@ -23,13 +23,13 @@ const Message = ({ friends, messages, addMessage }) => {
         if (item.sender === 'in') {
             return (
                 <div key={item.id} className={style.message_in}>
-                    <p className={style.text}>{item.text}</p>
+                    <p className="message_text">{item.text}</p>
                 </div>
             )
         } else if (item.sender === 'out') {
             return (
                 <div key={item.id} className={style.message_out}>
-                    <p className={style.text}>{item.text}</p>
+                    <p className="message_text">{item.text}</p>
                 </div>
             )
         } else return undefined

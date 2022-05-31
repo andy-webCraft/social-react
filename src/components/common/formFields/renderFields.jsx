@@ -4,7 +4,7 @@ import { maxLengthCreator } from '../../../tools/validators';
 import { Input } from '../formControl/formControl';
 import style from './renderFields.module.scss'
 
-const maxLength20 = maxLengthCreator(20)
+const maxLength20 = maxLengthCreator(30)
 
 const renderFields = (obj, typeField, fieldNamePrefix = null) => {
     switch (typeField) {

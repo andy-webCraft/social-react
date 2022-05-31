@@ -5,6 +5,7 @@ const TOGGLE_FOLLOW = "TOGGLE-FOLLOW";
 const SET_PAGE = "SET-PAGE";
 const FETCHING_TOGGLE = "FETCHING-TOGGLE";
 const FOLLOWING_TOGGLE = "FOLLOWING-TOGGLE";
+const SHOW_MORE_USERS = "SHOW-MORE-USERS";
 
 let intinalState = {
   currentPeople: [],
@@ -21,6 +22,12 @@ let peopleReducer = (state = intinalState, action) => {
       return {
         ...state,
         currentPeople: [...action.users],
+        totalUsersCount: action.totalUsersCount,
+      };
+    case SHOW_MORE_USERS:
+      return {
+        ...state,
+        currentPeople: [...state.currentPeople, ...action.users],
         totalUsersCount: action.totalUsersCount,
       };
     case FETCHING_TOGGLE:
@@ -49,11 +56,15 @@ let peopleReducer = (state = intinalState, action) => {
 };
 
 export const setUsers = (users, totalUsersCount) => {
-  return { type: SET_USERS, users: users, totalUsersCount: totalUsersCount };
+  return { type: SET_USERS, users, totalUsersCount };
+};
+
+export const setMoreUsers = (users, totalUsersCount) => {
+  return { type: SHOW_MORE_USERS, users, totalUsersCount };
 };
 
 export const toggleFollow = (userId) => {
-  return { type: TOGGLE_FOLLOW, userId: userId };
+  return { type: TOGGLE_FOLLOW, userId };
 };
 
 export const setPage = (count) => {
@@ -61,15 +72,11 @@ export const setPage = (count) => {
 };
 
 export const toggleFetching = (isFetching) => {
-  return { type: FETCHING_TOGGLE, isFetching: isFetching };
+  return { type: FETCHING_TOGGLE, isFetching };
 };
 
 export const toggleFollowingProgress = (isFollowingProgress, userId) => {
-  return {
-    type: FOLLOWING_TOGGLE,
-    isFollowingProgress: isFollowingProgress,
-    userId: userId,
-  };
+  return { type: FOLLOWING_TOGGLE, isFollowingProgress, userId };
 };
 
 export const getUsers = (currentPage, pageSize) => {
@@ -77,6 +84,15 @@ export const getUsers = (currentPage, pageSize) => {
     dispatch(toggleFetching(true));
     let response = await UsersAPI.getUsers(currentPage, pageSize);
     dispatch(setUsers(response.data.items, response.data.totalCount));
+    dispatch(toggleFetching(false));
+  };
+};
+
+export const getMoreUsers = (currentPage, pageSize) => {
+  return async (dispatch) => {
+    dispatch(toggleFetching(true));
+    let response = await UsersAPI.getUsers(currentPage, pageSize);
+    dispatch(setMoreUsers(response.data.items, response.data.totalCount));
     dispatch(toggleFetching(false));
   };
 };

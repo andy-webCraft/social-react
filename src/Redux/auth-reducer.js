@@ -59,7 +59,7 @@ export const loginAuth = (email, password, remember, captcha) => {
         response.data.messages.length > 0
           ? response.data.messages[0]
           : "Some Error";
-      // let errors = parseErrorsText(response.data.messages)   // рефакт
+      // let errors = parseErrorsText(response.data.messages)   // refact this
       dispatch(stopSubmit("login", { _error: errorMessage }));
     }
     dispatch(toggleFetching(false));

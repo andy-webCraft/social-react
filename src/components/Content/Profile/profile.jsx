@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import style from './profile.module.scss'
 import userAvatar from "../../../assets/img/user.png"
 import { reset } from "redux-form";
-import ProfileStatus from "./profile-status";
-import { ProfileInfo, ProfileInfoForm } from "./profile-info";
+import ProfileStatus from "./profile-status/profile-status";
+import { ProfileInfo, ProfileInfoForm } from "./profile-info/profile-info";
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'
-import ProfilePostsReduxForm from "./profile-posts";
+import ProfilePostsReduxForm from "./profile-posts/profile-posts";
 
 const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, uploadProfilePhoto, changeProfileInfo, userLikesPostsId, likeToggle }) => {
 
@@ -40,7 +40,7 @@ const Profile = ({ userData, profileId, status, updateStatus, posts, addPost, up
         if (JSON.stringify(formData) !== JSON.stringify(initialValuesForm)) {
             let payload = { userId: userData.userId, ...formData }
             changeProfileInfo(payload)/*.then(
-                () => toggleEditMode()       // рефакт
+                () => toggleEditMode()       // refact this
             )*/
         } else toggleEditMode()
     }
